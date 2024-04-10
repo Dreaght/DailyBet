@@ -1,0 +1,8 @@
+name: DailyBet
+version: '${project.version}'
+depend: [Vault, PlayerPoints, CMI]
+main: ru.legeu.dailybet.DailyBet
+api-version: '1.20'
+authors: [Legeu]
+commands:
+  bet: {}
