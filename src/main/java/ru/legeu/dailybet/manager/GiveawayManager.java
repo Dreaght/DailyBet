@@ -2,6 +2,7 @@ package ru.legeu.dailybet.manager;
 
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
+import ru.legeu.dailybet.BetEconomyHandler;
 import ru.legeu.dailybet.object.User;
 
 import java.util.Set;
@@ -16,7 +17,7 @@ public class GiveawayManager {
         this.plugin = plugin;
     }
 
-    public void init(Plugin plugin) {
+    public static void init(Plugin plugin) {
         instance = new GiveawayManager(plugin);
     }
 
@@ -25,14 +26,14 @@ public class GiveawayManager {
         for (User user : getUsersToGiveaway(betManager)) {
             int points = betManager.getUserAward(user);
 
-            depositPoints(user);
+            depositPoints(user, points);
 
             user.sendMessage("You received " + points + " points!");
         }
     }
 
-    private void depositPoints(User user) {
-        //TODO: Добавить монетки к PlayerPoints балансу игрока
+    private void depositPoints(User user, int points) {
+        BetEconomyHandler.addCoins(user.getPlayer(), points);
 
     }
 

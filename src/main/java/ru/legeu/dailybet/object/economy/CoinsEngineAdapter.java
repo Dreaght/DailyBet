@@ -1,4 +1,4 @@
-package ru.legeu.dailybet.object.economy.adapter;
+package ru.legeu.dailybet.object.economy;
 
 import org.bukkit.entity.Player;
 import su.nightexpress.coinsengine.api.CoinsEngineAPI;

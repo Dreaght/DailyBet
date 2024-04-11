@@ -1,4 +1,4 @@
-package ru.legeu.dailybet.object.economy.adapter;
+package ru.legeu.dailybet.object.economy;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
