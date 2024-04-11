@@ -40,6 +40,15 @@ public abstract class Configurable {
         saveConfig();
     }
 
+    public Object getValue(String key) {
+        return config.get(key);
+    }
+
+    public void setValue(String key, String value) {
+        config.set(key, value);
+        saveConfig();
+    }
+
     public void saveConfig() {
         try {
             config.save(configFile);

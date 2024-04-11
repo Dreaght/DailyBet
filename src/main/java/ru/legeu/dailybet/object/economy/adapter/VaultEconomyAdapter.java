@@ -2,6 +2,7 @@ package ru.legeu.dailybet.object.economy.adapter;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.entity.Player;
 
 public class VaultEconomyAdapter implements EconomyAdapter {
     private final Economy economy;
@@ -11,29 +12,29 @@ public class VaultEconomyAdapter implements EconomyAdapter {
     }
 
     @Override
-    public boolean add(String accountName, double amount) {
-        return economy.depositPlayer(accountName, amount).type == EconomyResponse.ResponseType.SUCCESS;
+    public boolean add(Player player, double amount) {
+        return economy.depositPlayer(player, amount).type == EconomyResponse.ResponseType.SUCCESS;
     }
 
     @Override
-    public boolean subtract(String accountName, double amount) {
-        return economy.withdrawPlayer(accountName, amount).type == EconomyResponse.ResponseType.SUCCESS;
+    public boolean subtract(Player player, double amount) {
+        return economy.withdrawPlayer(player, amount).type == EconomyResponse.ResponseType.SUCCESS;
     }
 
     @Override
-    public double getBalance(String accountName) {
-        return economy.getBalance(accountName);
+    public double getBalance(Player player) {
+        return economy.getBalance(player);
     }
 
     @Override
-    public boolean setBalance(String accountName, double amount) {
-        double currentBalance = getBalance(accountName);
+    public boolean setBalance(Player player, double amount) {
+        double currentBalance = getBalance(player);
         double diff = Math.abs(amount - currentBalance);
 
         if (amount > currentBalance) {
-            return add(accountName, diff);
+            return add(player, diff);
         }else if (amount < currentBalance) {
-            return subtract(accountName, diff);
+            return subtract(player, diff);
         }
 
         return true;

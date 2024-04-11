@@ -13,19 +13,8 @@ public class SettingsConfig extends Configurable {
 
     private static Map<String, Object> createDefaults() {
         Map<String, Object> defaults = new HashMap<>();
-        defaults.put("time", "19:20");
-        defaults.put("date", "");
-        defaults.put("points", 500);
+        defaults.put("time-zone", "");
+        defaults.put("interval", "24h");
         return defaults;
-
-    }
-
-    public String getTimeZone() {
-        return config.getString("time-zone");
-    }
-
-    public void setTimeZone(String time) {
-        config.set("time-zone", time);
-        saveConfig();
     }
 }

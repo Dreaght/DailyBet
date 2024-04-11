@@ -1,4 +1,4 @@
-package ru.legeu.dailybet.commands;
+package ru.legeu.dailybet.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

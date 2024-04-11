@@ -1,4 +1,4 @@
-package ru.legeu.dailybet.commands;
+package ru.legeu.dailybet.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,9 +8,9 @@ import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import ru.legeu.dailybet.commands.arg.StartArg;
-import ru.legeu.dailybet.commands.arg.StopArg;
-import ru.legeu.dailybet.commands.arg.BetAmountArg;
+import ru.legeu.dailybet.command.arg.StartArg;
+import ru.legeu.dailybet.command.arg.StopArg;
+import ru.legeu.dailybet.command.arg.BetAmountArg;
 
 import java.util.*;
 

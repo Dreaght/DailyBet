@@ -1,9 +1,9 @@
-package ru.legeu.dailybet.commands.arg;
+package ru.legeu.dailybet.command.arg;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import ru.legeu.dailybet.commands.AbstractCommand;
+import ru.legeu.dailybet.command.AbstractCommand;
 import ru.legeu.dailybet.manager.BetManager;
 import ru.legeu.dailybet.manager.BetTaskManager;
 import ru.legeu.dailybet.object.User;

@@ -1,11 +1,13 @@
 package ru.legeu.dailybet.object.economy.adapter;
 
+import org.bukkit.entity.Player;
+
 public interface EconomyAdapter {
-    boolean add(String accountName, double amount);
+    boolean add(Player player, double amount);
 
-    boolean subtract(String accountName, double amount);
+    boolean subtract(Player player, double amount);
 
-    double getBalance(String accountName);
+    double getBalance(Player player);
 
-    boolean setBalance(String accountName, double amount);
+    boolean setBalance(Player player, double amount);
 }
