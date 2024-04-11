@@ -28,8 +28,13 @@ public abstract class Configurable {
         for (Map.Entry<String, Object> entry : defaults.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
+
             if (!config.contains(key)) {
-                config.set(key, value);
+                if (value == null) {
+                    config.createSection(key);
+                } else {
+                    config.set(key, value);
+                }
             }
         }
         saveConfig();
