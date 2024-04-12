@@ -30,6 +30,7 @@ public final class DailyBet extends JavaPlugin {
         ConfigManager.init(this);
         BetTaskManager.init(this);
         GiveawayManager.init(this);
+        MenuManager.init(this);
 
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
         Objects.requireNonNull(getCommand("bet")).setExecutor(new BetCommand());

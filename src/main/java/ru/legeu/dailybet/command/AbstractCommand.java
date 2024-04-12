@@ -7,9 +7,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import ru.legeu.dailybet.manager.UserManager;
-import ru.legeu.dailybet.object.User;
-
 import java.util.List;
 
 public abstract class AbstractCommand implements CommandExecutor, TabCompleter {
@@ -19,14 +16,11 @@ public abstract class AbstractCommand implements CommandExecutor, TabCompleter {
         if (args.length == 0) return false;
         Player player = (Player) commandSender;
 
-        UserManager userManager =  UserManager.getInstance();
-        User user = userManager.getUser(player);
-
         if (player.hasPermission(getPermission())) {
             return false;
         }
 
-        commandHandler(user, args);
+        commandHandler(player, args);
 
         return true;
     }
@@ -34,13 +28,13 @@ public abstract class AbstractCommand implements CommandExecutor, TabCompleter {
     public abstract List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
                                                @NotNull String alias, @NotNull String[] args);
 
-    public void sendUsageMessage(User user, String message) {
-        user.sendMessage(String.format("Usage: /%s %s", "bet", message));
+    public void sendUsageMessage(Player player, String message) {
+        player.sendMessage(String.format("Usage: /%s %s", "bet", message));
     }
 
-    public abstract void commandHandler(User user, String[] args);
+    public abstract void commandHandler(Player player, String[] args);
 
-    public abstract void sendUsageMessage(User user);
+    public abstract void sendUsageMessage(Player player);
 
     public abstract String getPermission();
 }

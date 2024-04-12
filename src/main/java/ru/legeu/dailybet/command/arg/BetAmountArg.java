@@ -2,11 +2,12 @@ package ru.legeu.dailybet.command.arg;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import ru.legeu.dailybet.BetEconomyHandler;
 import ru.legeu.dailybet.command.AbstractCommand;
-import ru.legeu.dailybet.manager.BetManager;
+import ru.legeu.dailybet.utils.BetManager;
 import ru.legeu.dailybet.manager.BetTaskManager;
 import ru.legeu.dailybet.object.User;
 
@@ -20,19 +21,19 @@ public class BetAmountArg extends AbstractCommand {
     }
 
     @Override
-    public void commandHandler(User user, String[] args) {
+    public void commandHandler(Player player, String[] args) {
         if (!BetTaskManager.getInstance().isRunning()) {
-            user.sendMessage("You can't do it right now!");
+            player.sendMessage("You can't do it right now!");
         }
 
         int cash = Integer.parseInt(args[1]);
 
-        handleBet(user, cash);
+        handleBet(player, cash);
     }
 
     @Override
-    public void sendUsageMessage(User user) {
-        sendUsageMessage(user, "<amount>");
+    public void sendUsageMessage(Player player) {
+        sendUsageMessage(player, "<amount>");
     }
 
     @Override
@@ -40,7 +41,7 @@ public class BetAmountArg extends AbstractCommand {
         return "";
     }
 
-    private void handleBet(User user, int cash) {
+    private void handleBet(Player user, int cash) {
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
 
         BetEconomyHandler.subtract(user.getPlayer(), cash);
