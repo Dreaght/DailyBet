@@ -4,7 +4,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
 import ru.legeu.dailybet.command.AbstractCommand;
 import ru.legeu.dailybet.manager.BetTaskManager;
 import ru.legeu.dailybet.object.User;
@@ -12,13 +11,13 @@ import ru.legeu.dailybet.object.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StopArg extends AbstractCommand {
+public class TopArg extends AbstractCommand {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         List<String> completions = new ArrayList<>();
 
         if (args.length == 1 && hasRights(sender)) {
-            completions.add("stop");
+            completions.add("top");
         }
 
         return completions;
@@ -31,10 +30,14 @@ public class StopArg extends AbstractCommand {
     @Override
     public void commandHandler(User user, String[] args) {
         Player player = user.getPlayer();
-        if (!hasRights(player))
-            return;
+
+        handleCommand(player);
 
         BetTaskManager.getInstance().stopBetProcess();
+    }
+
+    private void handleCommand(Player player) {
+        //TODO: JUST DO IT
     }
 
     @Override
@@ -44,6 +47,6 @@ public class StopArg extends AbstractCommand {
 
     @Override
     public String getPermission() {
-        return "bet.command.stop";
+        return "bet.command.top";
     }
 }

@@ -6,18 +6,27 @@ public class ParsePeriod {
         char unit = periodStr.charAt(periodStr.length() - 1);
 
         switch (unit) {
-            case 'h' -> period = getPeriodFromString();
-            case 'm' -> period = getDateTimeFromString(args[0], args[1]);
+            case 'h' -> period = getMillsFromHours(parseLong(periodStr));
+            case 'm' -> period = getMillsFromMinutes(parseLong(periodStr));
+            case 's' -> period = getMillsFromSeconds(parseLong(periodStr));
             default -> period = 0;
         }
         return period;
     }
 
-    public long parseLong(String periodStr) {
-        return Long.parseLong(periodStr.length() - 1)
+    public static long parseLong(String periodStr) {
+        return Long.parseLong(periodStr.substring(0, periodStr.length() - 1));
     }
 
-    public long getSecondsOfHours(long hours) {
+    public static long getMillsFromHours(long hours) {
+        return hours * 60 * 60 * 1000;
+    }
 
+    public static long getMillsFromMinutes(long minutes) {
+        return minutes * 60 * 1000;
+    }
+
+    public static long getMillsFromSeconds(long seconds) {
+        return seconds * 1000;
     }
 }

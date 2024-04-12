@@ -2,6 +2,7 @@ package ru.legeu.dailybet.manager;
 
 import lombok.Getter;
 
+import ru.legeu.dailybet.BetEconomyHandler;
 import ru.legeu.dailybet.object.User;
 
 import java.util.HashMap;

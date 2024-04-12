@@ -3,6 +3,7 @@ package ru.legeu.dailybet.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class ParseData {
     public static Date getDateTimeFromString(String[] args) throws ParseException {
@@ -32,4 +33,18 @@ public class ParseData {
 
         return timeDateFormat.parse(timeFormat.format(time) + dateFormat.format(date));
     }
+
+    public static Date getTimezonedDate(Date date, String timeZoneStr) {
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
+        String formattedDate = sdf.format(date);
+
+        try {
+            return sdf.parse(formattedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

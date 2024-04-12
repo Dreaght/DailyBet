@@ -2,7 +2,10 @@ package ru.legeu.dailybet.manager;
 
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
+import ru.legeu.dailybet.config.ConfigManager;
 import ru.legeu.dailybet.tasks.BetDailyTimer;
+import ru.legeu.dailybet.utils.ParseData;
+import ru.legeu.dailybet.utils.ParsePeriod;
 
 import java.util.Date;
 import java.util.Timer;
@@ -30,7 +33,14 @@ public class BetTaskManager {
 
     public void startBetProcess(int points, Date date) {
         this.betManager = new BetManager(points);
-        timer.schedule(betDailyTimer, date, 1000 * 60 * 60 * 24);
+        ConfigManager configManager = ConfigManager.getInstance();
+
+        String periodStr = (String) configManager.getSettingsConfig().getValue("interval");
+        String timeZoneStr = (String) configManager.getSettingsConfig().getValue("time-zone");
+
+        date = ParseData.getTimezonedDate(date, timeZoneStr);
+
+        timer.schedule(betDailyTimer, date, ParsePeriod.getPeriodFromString(periodStr));
     }
 
     public void stopBetProcess() {

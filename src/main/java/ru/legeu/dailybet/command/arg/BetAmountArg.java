@@ -52,8 +52,6 @@ public class BetAmountArg extends AbstractCommand {
             user.sendMessage("§aВы успешно поставили ставку!");
         }
 
-        betManager.addBet(user, cash);
-
         user.sendMessage("&aВаш счёт на ставках: §e" + betManager.getInvestedCash(user) + "§a$");
     }
 }
