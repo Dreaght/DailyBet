@@ -29,8 +29,7 @@ public class StopArg extends AbstractCommand {
     }
 
     @Override
-    public void commandHandler(User user, String[] args) {
-        Player player = user.getPlayer();
+    public void commandHandler(Player player, String[] args) {
         if (!hasRights(player))
             return;
 
@@ -38,7 +37,7 @@ public class StopArg extends AbstractCommand {
     }
 
     @Override
-    public void sendUsageMessage(User user) {
+    public void sendUsageMessage(Player user) {
         sendUsageMessage(user, "stop");
     }
 

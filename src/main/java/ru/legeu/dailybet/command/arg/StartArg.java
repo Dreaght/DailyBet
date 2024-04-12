@@ -7,8 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import ru.legeu.dailybet.command.AbstractCommand;
 import ru.legeu.dailybet.manager.BetTaskManager;
-import ru.legeu.dailybet.object.User;
-import ru.legeu.dailybet.utils.ParseData;
+import ru.legeu.dailybet.utils.parse.ParseData;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class StartArg extends AbstractCommand {
             Date date = ParseData.getDateTimeFromString(Arrays.copyOfRange(args, 2, args.length));
             BetTaskManager.getInstance().startBetProcess(Integer.parseInt(args[0]), date);
         } catch (ParseException e) {
-            sendUsageMessage(user);
+            sendUsageMessage(player);
         }
     }
 

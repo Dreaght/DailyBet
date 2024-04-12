@@ -1,4 +1,4 @@
-package ru.legeu.dailybet.utils;
+package ru.legeu.dailybet.utils.parse;
 
 public class ParsePeriod {
     public static long getPeriodFromString(String periodStr) {

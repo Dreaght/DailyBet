@@ -3,7 +3,9 @@ package ru.legeu.dailybet.command.arg;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
 import org.jetbrains.annotations.NotNull;
+
 import ru.legeu.dailybet.command.AbstractCommand;
 import ru.legeu.dailybet.manager.BetTaskManager;
 import ru.legeu.dailybet.object.User;
@@ -28,9 +30,7 @@ public class TopArg extends AbstractCommand {
     }
 
     @Override
-    public void commandHandler(User user, String[] args) {
-        Player player = user.getPlayer();
-
+    public void commandHandler(Player player, String[] args) {
         handleCommand(player);
 
         BetTaskManager.getInstance().stopBetProcess();
@@ -41,8 +41,8 @@ public class TopArg extends AbstractCommand {
     }
 
     @Override
-    public void sendUsageMessage(User user) {
-        sendUsageMessage(user, "stop");
+    public void sendUsageMessage(Player player) {
+        sendUsageMessage(player, "stop");
     }
 
     @Override
