@@ -28,7 +28,7 @@ public class StartArg extends AbstractCommand {
     }
 
     @Override
-    public void commandHandler(User user, String[] args) {
+    public void commandHandler(Player user, String[] args) {
         if (BetTaskManager.getInstance().isRunning()) {
             user.sendMessage("§cИ так запущено уже");
             return;
@@ -40,8 +40,7 @@ public class StartArg extends AbstractCommand {
         return sender.hasPermission(getPermission()) || sender.isOp();
     }
 
-    private void handleCommand(User user, String[] args) {
-        Player player = user.getPlayer();
+    private void handleCommand(Player player, String[] args) {
         if (!hasRights(player))
             return;
 
@@ -54,8 +53,8 @@ public class StartArg extends AbstractCommand {
     }
 
     @Override
-    public void sendUsageMessage(User user) {
-        sendUsageMessage(user, "start <points> (optional: <hh:mm>) (optional: <dd.MM.yyyy>)");
+    public void sendUsageMessage(Player player) {
+        sendUsageMessage(player, "start <points> (optional: <hh:mm>) (optional: <dd.MM.yyyy>)");
     }
 
     @Override
