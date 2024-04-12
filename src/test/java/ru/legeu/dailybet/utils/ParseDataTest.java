@@ -1,0 +1,22 @@
+package ru.legeu.dailybet.utils;
+
+import org.junit.jupiter.api.Test;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
+class ParseDataTest {
+
+    @Test
+    void getTimezonedDate() {
+        String timeZoneStr = "GMT+3";
+        Date timezonedDate = ParseData.getTimezonedDate(new Date(), timeZoneStr);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
+        String formattedDate = sdf.format(timezonedDate);
+
+        System.out.println(formattedDate);
+    }
+}

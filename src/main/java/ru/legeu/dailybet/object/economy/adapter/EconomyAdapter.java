@@ -1,4 +1,4 @@
-package ru.legeu.dailybet.object.economy;
+package ru.legeu.dailybet.object.economy.adapter;
 
 import org.bukkit.entity.Player;
 

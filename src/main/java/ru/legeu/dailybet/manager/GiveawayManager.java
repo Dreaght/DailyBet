@@ -34,7 +34,6 @@ public class GiveawayManager {
 
     private void depositPoints(User user, int points) {
         BetEconomyHandler.addCoins(user.getPlayer(), points);
-
     }
 
     private Set<User> getUsersToGiveaway(BetManager betManager) {

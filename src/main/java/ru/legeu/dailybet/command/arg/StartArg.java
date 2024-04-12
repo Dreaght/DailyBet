@@ -2,6 +2,7 @@ package ru.legeu.dailybet.command.arg;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import ru.legeu.dailybet.command.AbstractCommand;
@@ -41,10 +42,9 @@ public class StartArg extends AbstractCommand {
     }
 
     private void handleCommand(User user, String[] args) {
-        if (args.length > 4) {
-            sendUsageMessage(user);
+        Player player = user.getPlayer();
+        if (!hasRights(player))
             return;
-        }
 
         try {
             Date date = ParseData.getDateTimeFromString(Arrays.copyOfRange(args, 2, args.length));

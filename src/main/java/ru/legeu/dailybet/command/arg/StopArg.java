@@ -30,25 +30,15 @@ public class StopArg extends AbstractCommand {
     @Override
     public void commandHandler(User user, String[] args) {
         Player player = user.getPlayer();
-        if (!(player.hasPermission(getPermission()) || player.isOp()))
+        if (!hasRights(player))
             return;
 
-        if (args.length < 4) {
-            sendUsageMessage(user);
-            return;
-        }
-
-        cancelBetTimer();
+        BetTaskManager.getInstance().stopBetProcess();
     }
 
     @Override
     public void sendUsageMessage(User user) {
         sendUsageMessage(user, "stop");
-    }
-
-    public void cancelBetTimer() {
-        BetTaskManager betTaskManager = BetTaskManager.getInstance();
-        if (!betTaskManager.isRunning()) return;
     }
 
     @Override

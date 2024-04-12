@@ -3,9 +3,9 @@ package ru.legeu.dailybet;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import ru.legeu.dailybet.object.economy.CoinsEngineAdapter;
-import ru.legeu.dailybet.object.economy.EconomyAdapter;
-import ru.legeu.dailybet.object.economy.VaultEconomyAdapter;
+import ru.legeu.dailybet.object.economy.adapter.CoinsEngineAdapter;
+import ru.legeu.dailybet.object.economy.adapter.EconomyAdapter;
+import ru.legeu.dailybet.object.economy.adapter.VaultEconomyAdapter;
 
 public class BetEconomyHandler {
     private static DailyBet plugin = null;

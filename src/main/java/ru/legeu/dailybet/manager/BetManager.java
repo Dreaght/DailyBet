@@ -7,10 +7,9 @@ import ru.legeu.dailybet.object.User;
 import java.util.HashMap;
 import java.util.Set;
 
+@Getter
 public class BetManager {
-    @Getter
     private final HashMap<User, Integer> bets = new HashMap<>();
-    @Getter
     private int points;
 
     public BetManager(int points) {
@@ -22,10 +21,6 @@ public class BetManager {
         if (bets.containsKey(user))
             finiteCash += bets.get(user);
         bets.put(user, finiteCash);
-    }
-
-    public void removeTotalBets() {
-        bets.clear();
     }
 
     public boolean userExist(User user) {
@@ -56,10 +51,6 @@ public class BetManager {
 
     public Set<User> getUsers() {
         return bets.keySet();
-    }
-
-    public void changePoints(int points) {
-        this.points = points ;
     }
 }
 
