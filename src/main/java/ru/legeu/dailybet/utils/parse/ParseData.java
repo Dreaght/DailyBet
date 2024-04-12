@@ -1,4 +1,4 @@
-package ru.legeu.dailybet.utils;
+package ru.legeu.dailybet.utils.parse;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,0 +1,15 @@
+# -=-=-=-=-=-=-=-=-=-=-=-=-
+# SUPPORTED PLACEHOLDERS:
+# -=-=-=-=-=-=-=-=-=-=-=-=-
+# %PLAYER_NAME% - Player name
+# %AMOUNT% - Amount of bet
+# %PERCENT% - Percent of total bets
+# %AWARD% - Award for player
+# -=-=-=-=-=-=-=-=-=-=-=-=-
+
+messages:
+  menu:
+    title: "§8Bets top"
+    head:
+      title: "§c%PLAYER_NAME% §7(§8%AMOUNT%§7)"
+      award: "§6%PERCENT% §7- §c%AWARD%"
