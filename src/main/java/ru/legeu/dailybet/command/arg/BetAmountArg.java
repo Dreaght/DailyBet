@@ -9,7 +9,6 @@ import ru.legeu.dailybet.BetEconomyHandler;
 import ru.legeu.dailybet.command.AbstractCommand;
 import ru.legeu.dailybet.utils.BetManager;
 import ru.legeu.dailybet.manager.BetTaskManager;
-import ru.legeu.dailybet.object.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,7 @@ public class BetAmountArg extends AbstractCommand {
         BetEconomyHandler.subtract(user.getPlayer(), cash);
         betManager.addBet(user, cash);
 
-        if (betManager.userExist(user)) {
+        if (betManager.isPresent(user)) {
             user.sendMessage("§aВы успешно добавили сумму в свою ставку!");
         } else {
             user.sendMessage("§aВы успешно поставили ставку!");

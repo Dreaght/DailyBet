@@ -6,7 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import ru.legeu.dailybet.BetEconomyHandler;
-import ru.legeu.dailybet.object.User;
+import ru.legeu.dailybet.object.Bet;
+import ru.legeu.dailybet.utils.BetManager;
 
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class GiveawayManager {
         BetEconomyHandler.addCoins(player, points);
     }
 
-    private Set<User> getUsersToGiveaway(BetManager betManager) {
-        return betManager.getUsers();
+    private Set<Bet> getBets(BetManager betManager) {
+        return betManager.getBets();
     }
 }
