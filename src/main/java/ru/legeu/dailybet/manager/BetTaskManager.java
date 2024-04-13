@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 import ru.legeu.dailybet.config.ConfigManager;
 import ru.legeu.dailybet.tasks.BetDailyTimer;
-import ru.legeu.dailybet.utils.BetManager;
 import ru.legeu.dailybet.utils.parse.ParseData;
 import ru.legeu.dailybet.utils.parse.ParsePeriod;
 

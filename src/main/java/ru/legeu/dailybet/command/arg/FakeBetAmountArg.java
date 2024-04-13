@@ -1,20 +1,16 @@
 package ru.legeu.dailybet.command.arg;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.mockito.Mockito;
-import ru.legeu.dailybet.BetEconomyHandler;
 import ru.legeu.dailybet.command.AbstractCommand;
 import ru.legeu.dailybet.manager.BetTaskManager;
-import ru.legeu.dailybet.utils.BetManager;
+import ru.legeu.dailybet.manager.BetManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class FakeBetAmountArg extends AbstractCommand {
     @Override

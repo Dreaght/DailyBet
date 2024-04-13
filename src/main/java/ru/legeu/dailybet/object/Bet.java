@@ -1,25 +1,35 @@
 package ru.legeu.dailybet.object;
 
 import lombok.Getter;
-import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
+
+import java.util.Objects;
+import java.util.UUID;
 
 public class Bet implements Comparable<Bet> {
-    @Getter
-    private Player player;
-    @Getter
-    private double cash;
+    @Getter private UUID uuid;
+    @Getter private double cash;
 
-    public Bet(Player player, int cash) {
-        this.player = player;
+    public Bet(UUID uuid, int cash) {
+        this.uuid = uuid;
         this.cash = cash;
     }
 
     public Bet(int cash) {
+        this.uuid = UUID.randomUUID();
         this.cash = cash;
     }
 
     public void addCash(int amount) {
         cash += amount;
+    }
+
+    public String getPlayerName() {
+        if (Bukkit.getPlayer(uuid) == null) {
+            return "fake_" + (int) (Math.random() * 1000);
+        }
+
+        return Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName();
     }
 
     @Override

@@ -24,14 +24,14 @@ public final class DailyBet extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        BetEconomyHandler.init(this);
-
         instance = this;
 
         ConfigManager.init(this);
         BetTaskManager.init(this);
         GiveawayManager.init(this);
         MenuManager.init(this);
+
+        BetEconomyHandler.init(this);
 
         getServer().getPluginManager().registerEvents(new MenuListener(), this);
         Objects.requireNonNull(getCommand("bet")).setExecutor(new BetCommand());

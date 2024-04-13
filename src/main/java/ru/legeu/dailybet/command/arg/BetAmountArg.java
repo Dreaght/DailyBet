@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import ru.legeu.dailybet.BetEconomyHandler;
 import ru.legeu.dailybet.command.AbstractCommand;
-import ru.legeu.dailybet.utils.BetManager;
+import ru.legeu.dailybet.manager.BetManager;
 import ru.legeu.dailybet.manager.BetTaskManager;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class BetAmountArg extends AbstractCommand {
     private void handleBet(Player user, int cash) {
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
 
-        BetEconomyHandler.subtract(user.getPlayer(), cash);
+        BetEconomyHandler.getInstance().subtract(user.getPlayer(), cash);
         betManager.addBet(user, cash);
 
         if (betManager.isPresent(user)) {

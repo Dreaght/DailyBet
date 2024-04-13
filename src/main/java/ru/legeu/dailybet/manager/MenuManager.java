@@ -8,14 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.legeu.dailybet.config.ConfigManager;
 import ru.legeu.dailybet.config.MessageConfig;
 import ru.legeu.dailybet.object.Bet;
-import ru.legeu.dailybet.utils.BetManager;
+import ru.legeu.dailybet.object.menu.Head;
 import ru.legeu.dailybet.utils.inventory.InventoryStateHandler;
 import ru.legeu.dailybet.utils.parse.ParsePlaceholder;
 
@@ -30,10 +29,14 @@ public class MenuManager {
 
     private static int menuRows;
 
+    private ConfigManager configManager;
+    private BetManager betManager;
+
     private MenuManager(Plugin plugin) {
         this.plugin = plugin;
 
-        ConfigManager configManager = ConfigManager.getInstance();
+        configManager = ConfigManager.getInstance();
+
         menuRows = (int) configManager.getSettingsConfig().getValue("menu-rows");
         loadContent();
         startUpdating();
@@ -43,6 +46,28 @@ public class MenuManager {
     public static void init(Plugin plugin) {
         if (instance == null) {
             instance = new MenuManager(plugin);
+        }
+    }
+
+    public void loadContent() {
+        try {
+            inventory = Bukkit.createInventory(
+                    null, menuRows * 9,
+                    (String) ConfigManager.getInstance().getMessageConfig().getValue("messages.menu.title"));
+        } catch (IllegalArgumentException exception) {
+            Bukkit.getLogger().severe("Invalid menu row value. Must be between 3 and 6.");
+            Bukkit.getServer().getPluginManager().disablePlugin(plugin);
+            return;
+        }
+
+        for (int i = 0; i < menuRows * 9; i++) {
+            ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+            ItemMeta itemMeta = item.getItemMeta();
+
+            itemMeta.setDisplayName("§0");
+            item.setItemMeta(itemMeta);
+
+            inventory.setItem(i, item);
         }
     }
 
@@ -86,31 +111,17 @@ public class MenuManager {
     }
 
     public void startUpdating() {
-        BetTaskManager betTaskManager = BetTaskManager.getInstance();
-
         BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                BetManager betManager = betTaskManager.getBetManager();
-
+                betManager = BetTaskManager.getInstance().getBetManager();
                 Set<Bet> bets = new HashSet<>();
                 if (betManager != null) {
-                    bets = betManager.getBets();
+                    bets = betManager.getBets(); // to make it fakes --> // turn it to #getBetsWithFakes() instead
                 }
 
-                List<ItemStack> targetHeads = getTargetHeads(bets);
-
-                try {
-                    inventory.setItem(4, targetHeads.get(0));
-                    inventory.setItem(12, targetHeads.get(1));
-                    inventory.setItem(14, targetHeads.get(2));
-
-                    for (int i = 19; i < 25; i++) {
-                        inventory.setItem(i, targetHeads.get(i - 19));
-                    }
-                } catch (Exception ignore) {
-                }
-
+                List<ItemStack> targetHeads = new ContentManager(bets).getTargetHeads();
+                fillHeads(targetHeads);
             }
         };
 
@@ -119,76 +130,18 @@ public class MenuManager {
         }
     }
 
-    public void loadContent() {
+    private void fillHeads(List<ItemStack> targetHeads) {
         try {
-            inventory = Bukkit.createInventory(
-                    null, menuRows * 9,
-                    (String) ConfigManager.getInstance().getMessageConfig().getValue("messages.menu.title"));
-        } catch (IllegalArgumentException exception) {
-            Bukkit.getLogger().severe("Invalid menu row value. Must be between 3 and 6.");
-            Bukkit.getServer().getPluginManager().disablePlugin(plugin);
-            return;
+            inventory.setItem(4, targetHeads.get(0));
+            inventory.setItem(12, targetHeads.get(1));
+            inventory.setItem(14, targetHeads.get(2));
+
+            for (int i = 19; i < 26; i++) {
+                inventory.setItem(i, targetHeads.get(i - 19));
+            }
+        } catch (IndexOutOfBoundsException ignore) {
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
-
-        for (int i = 0; i < menuRows * 9; i++) {
-            ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-            ItemMeta itemMeta = item.getItemMeta();
-
-            itemMeta.setDisplayName("§0");
-            item.setItemMeta(itemMeta);
-
-            inventory.setItem(i, item);
-        }
-    }
-
-    public List<ItemStack> getTargetHeads(Set<Bet> bets) {
-        List<ItemStack> targetHeads = new ArrayList<>();
-        ConfigManager configManager = ConfigManager.getInstance();
-        BetManager betManager = BetTaskManager.getInstance().getBetManager();
-        MessageConfig messageConfig = configManager.getMessageConfig();
-
-        for (Bet bet : bets) {
-            ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-            SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
-            Player player = Bukkit.getPlayer(bet.getPlayer());
-
-            List<String> lore = new ArrayList<>();
-
-            setDisplayName(bet, skullMeta, messageConfig);
-            setLore(lore, betManager, player, messageConfig);
-
-            skullMeta.setLore(lore);
-            skull.setItemMeta(skullMeta);
-
-            targetHeads.add(skull);
-        }
-
-        return targetHeads;
-    }
-
-    private void setDisplayName(Bet bet, SkullMeta skullMeta, MessageConfig messageConfig) {
-        Player player = Bukkit.getPlayer(bet.getPlayer());
-
-        String itsFuckingName;
-
-        if (player == null) {
-            itsFuckingName = "fake_" +  (int) (Math.random() * 4);
-        } else {
-            itsFuckingName = player.getName();
-        }
-
-        skullMeta.setDisplayName(ParsePlaceholder.parseWithBraces((String) messageConfig.getValue("messages.menu.head.title"),
-                new String[]{"PLAYER_NAME", "AMOUNT"},
-                new Object[]{itsFuckingName, bet.getCash()
-        }));
-    }
-
-    private void setLore(List<String> lore, BetManager betManager, Player player, MessageConfig messageConfig) {
-        lore.add(ParsePlaceholder.parseWithBraces((String) messageConfig.getValue("messages.menu.head.award"),
-                new String[]{"PERCENT", "AWARD"},
-                new Object[]{
-                        (int) (betManager.calcPercent(player) * 100),
-                        (int) betManager.getUserAward(player)
-                }));
     }
 }

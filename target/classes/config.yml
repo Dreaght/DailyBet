@@ -1,4 +1,4 @@
-time-zone: ""
-interval: 1m
+time-zone: "GMT+3"
+interval: 10s
 
 menu-rows: 3

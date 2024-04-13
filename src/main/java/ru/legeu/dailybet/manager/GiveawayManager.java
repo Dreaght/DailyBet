@@ -8,7 +8,6 @@ import org.bukkit.plugin.Plugin;
 
 import ru.legeu.dailybet.BetEconomyHandler;
 import ru.legeu.dailybet.object.Bet;
-import ru.legeu.dailybet.utils.BetManager;
 
 import java.util.Set;
 
@@ -30,17 +29,21 @@ public class GiveawayManager {
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
 
         for (Bet bet : getBets(betManager)) {
-            Player player = (Player) Bukkit.getOfflinePlayer(bet.getPlayer());
+            Player player = Bukkit.getPlayer(bet.getUuid());
+            if (player == null) {
+                continue; // fake player, skipping
+            }
+
             double points = betManager.getUserAward(player);
 
-            depositPoints((Player) Bukkit.getOfflinePlayer(bet.getPlayer()), points);
+            depositPoints(player, points);
 
             player.sendMessage("You received " + points + " points!");
         }
     }
 
     private void depositPoints(Player player, double points) {
-        BetEconomyHandler.addCoins(player, points);
+        BetEconomyHandler.getInstance().addCoins(player, points);
     }
 
     private Set<Bet> getBets(BetManager betManager) {

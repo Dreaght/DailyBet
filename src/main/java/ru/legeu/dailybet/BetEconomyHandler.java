@@ -1,29 +1,38 @@
 package ru.legeu.dailybet;
 
+import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import ru.legeu.dailybet.object.economy.adapter.CoinsEngineAdapter;
 import ru.legeu.dailybet.object.economy.adapter.EconomyAdapter;
 import ru.legeu.dailybet.object.economy.adapter.VaultEconomyAdapter;
 
 public class BetEconomyHandler {
-    private static DailyBet plugin = null;
+    @Getter
+    private static BetEconomyHandler instance;
+
+    private Plugin plugin;
     private static EconomyAdapter economyVault = null;
     private static EconomyAdapter economyCoinsEngine = null;
 
-    public static void init(DailyBet plugin) {
-        BetEconomyHandler.plugin = plugin;
+    private BetEconomyHandler(Plugin plugin) {
+        this.plugin = plugin;
 
-        if (!BetEconomyHandler.setupEconomy()) {
+        if (!setupEconomy()) {
             plugin.getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", plugin.getName()));
             plugin.getServer().getPluginManager().disablePlugin(plugin);
             return;
         }
-        BetEconomyHandler.setupCoinsEngine();
+        setupCoinsEngine();
     }
 
-    public static boolean setupEconomy() {
+    public static void init(Plugin plugin) {
+        instance = new BetEconomyHandler(plugin);
+    }
+
+    public boolean setupEconomy() {
         if (plugin.getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
@@ -35,31 +44,31 @@ public class BetEconomyHandler {
         return economyVault != null;
     }
 
-    public static void setupCoinsEngine() {
+    public void setupCoinsEngine() {
         economyCoinsEngine = new CoinsEngineAdapter();
     }
 
-    public static boolean add(Player player, double amount) {
+    public boolean add(Player player, double amount) {
         return economyVault.add(player, amount);
     }
 
-    public static boolean subtract(Player player, double amount) {
+    public boolean subtract(Player player, double amount) {
         return economyVault.subtract(player, amount);
     }
 
-    public static boolean setBalance(Player player, double amount) {
+    public boolean setBalance(Player player, double amount) {
         return economyVault.setBalance(player, amount);
     }
 
-    public static boolean addCoins(Player player, double amount) {
+    public boolean addCoins(Player player, double amount) {
         return economyCoinsEngine.add(player, amount);
     }
 
-    public static boolean subtractCoins(Player player, double amount) {
+    public boolean subtractCoins(Player player, double amount) {
         return economyCoinsEngine.subtract(player, amount);
     }
 
-    public static boolean setBalanceCoins(Player player, double amount) {
+    public boolean setBalanceCoins(Player player, double amount) {
         return economyCoinsEngine.setBalance(player, amount);
     }
 }
