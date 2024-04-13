@@ -27,12 +27,7 @@ public final class DailyBet extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Player player = Bukkit.getPlayer("Dreaght");
-        System.out.println(CoinsEngineAPI.getBalance(player, CoinsEngineAPI.getCurrency("coins")));
-
         instance = this;
-
-
 
         ConfigManager.init(this);
         BetTaskManager.init(this);
