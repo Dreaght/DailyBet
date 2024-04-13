@@ -39,7 +39,7 @@ public class GiveawayManager {
         }
     }
 
-    private void depositPoints(Player player, int points) {
+    private void depositPoints(Player player, double points) {
         BetEconomyHandler.addCoins(player, points);
     }
 

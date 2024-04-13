@@ -1,0 +1,13 @@
+ru\legeu\dailybet\utils\BetManager.class
+ru\legeu\dailybet\manager\MenuManager$1.class
+ru\legeu\dailybet\manager\MenuManager.class
+ru\legeu\dailybet\command\arg\TopArg.class
+ru\legeu\dailybet\utils\inventory\InventorySerializerUtil.class
+ru\legeu\dailybet\utils\parse\ParsePlaceholder.class
+ru\legeu\dailybet\utils\FileManager.class
+ru\legeu\dailybet\object\Bet.class
+ru\legeu\dailybet\utils\chat\Color.class
+ru\legeu\dailybet\utils\parse\ParseData.class
+ru\legeu\dailybet\utils\parse\ParsePeriod.class
+ru\legeu\dailybet\config\MessageConfig.class
+ru\legeu\dailybet\utils\inventory\InventoryStateHandler.class

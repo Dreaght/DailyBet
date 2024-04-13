@@ -5,12 +5,16 @@ import org.bukkit.entity.Player;
 
 public class Bet implements Comparable<Bet> {
     @Getter
-    private final Player player;
+    private Player player;
     @Getter
-    private int cash;
+    private double cash;
 
     public Bet(Player player, int cash) {
         this.player = player;
+        this.cash = cash;
+    }
+
+    public Bet(int cash) {
         this.cash = cash;
     }
 
@@ -20,6 +24,6 @@ public class Bet implements Comparable<Bet> {
 
     @Override
     public int compareTo(Bet otherBet) {
-        return Integer.compare(otherBet.cash, this.cash);
+        return Double.compare(this.getCash(), otherBet.getCash());
     }
 }
