@@ -4,8 +4,6 @@ import org.bukkit.entity.Player;
 import su.nightexpress.coinsengine.api.CoinsEngineAPI;
 import su.nightexpress.coinsengine.api.currency.Currency;
 
-import java.util.Objects;
-
 public class CoinsEngineAdapter implements EconomyAdapter {
     @Override
     public boolean add(Player player, double amount) {

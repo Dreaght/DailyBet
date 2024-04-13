@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import net.milkbowl.vault.economy.Economy;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ru.legeu.dailybet.command.BetCommand;
@@ -13,6 +15,7 @@ import ru.legeu.dailybet.manager.BetTaskManager;
 import ru.legeu.dailybet.manager.GiveawayManager;
 import ru.legeu.dailybet.manager.MenuManager;
 import ru.legeu.dailybet.utils.inventory.InventoryStateHandler;
+import su.nightexpress.coinsengine.api.CoinsEngineAPI;
 
 import java.util.Objects;
 
@@ -24,7 +27,12 @@ public final class DailyBet extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        Player player = Bukkit.getPlayer("Dreaght");
+        System.out.println(CoinsEngineAPI.getBalance(player, CoinsEngineAPI.getCurrency("coins")));
+
         instance = this;
+
+
 
         ConfigManager.init(this);
         BetTaskManager.init(this);
