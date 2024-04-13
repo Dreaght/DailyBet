@@ -55,7 +55,7 @@ public class InventoryStateHandler {
         int size = items.length;
 
         Inventory inventory = Bukkit.createInventory(
-                null, size, (String) ConfigManager.getInstance().getMessageConfig().getValue("messages.menu.title"));
+                null, size, ConfigManager.getInstance().getMessageConfig().getString("messages.menu.title"));
         inventory.setContents(items);
         return inventory;
     }

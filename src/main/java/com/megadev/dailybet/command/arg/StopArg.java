@@ -1,7 +1,9 @@
 package com.megadev.dailybet.command.arg;
 
 import com.megadev.dailybet.command.AbstractCommand;
+import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.manager.BetTaskManager;
+import com.megadev.dailybet.utils.chat.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,8 +30,14 @@ public class StopArg extends AbstractCommand {
 
     @Override
     public void commandHandler(Player player, String[] args) {
-        if (!hasRights(player))
+        if (!hasRights(player)) {
+            Color.sendMessage(player, ConfigManager.getInstance().getMessageConfig().getString("messages.command.not-permission"));
             return;
+        }
+        if (BetTaskManager.getInstance().isRunning()) {
+            Color.sendMessage(player, ConfigManager.getInstance().getMessageConfig().getString("messages.command.event-stopped"));
+            return;
+        }
 
         BetTaskManager.getInstance().getTimer().cancel();
     }

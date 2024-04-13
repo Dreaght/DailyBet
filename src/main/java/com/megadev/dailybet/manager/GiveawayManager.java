@@ -1,5 +1,10 @@
 package com.megadev.dailybet.manager;
 
+import com.megadev.dailybet.config.ConfigManager;
+import com.megadev.dailybet.config.MessageConfig;
+import com.megadev.dailybet.utils.chat.Color;
+import com.megadev.dailybet.utils.parse.ParsePlaceholder;
+
 import lombok.Getter;
 
 import org.bukkit.Bukkit;
@@ -26,19 +31,28 @@ public class GiveawayManager {
     }
 
     public void distribute() {
+        MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
 
         for (Bet bet : getBets(betManager)) {
             Player player = Bukkit.getPlayer(bet.getUuid());
             if (player == null) {
-                continue; // fake player, skipping
+                continue;
             }
 
             double points = betManager.getUserAward(player);
 
             depositPoints(player, points);
 
-            player.sendMessage("You received " + points + " points!");
+            Color.sendMessage(messageConfig.getString("messages.event-finished"));
+
+            String stringPoints = messageConfig.getString("messages.received");
+
+            stringPoints = ParsePlaceholder.parseWithBraces(stringPoints,
+                    new String[]{"POINTS"},
+                    new Object[]{ points });
+
+            Color.sendMessage(player, stringPoints);
         }
     }
 

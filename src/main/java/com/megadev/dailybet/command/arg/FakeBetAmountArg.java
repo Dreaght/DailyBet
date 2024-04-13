@@ -1,8 +1,12 @@
 package com.megadev.dailybet.command.arg;
 
 import com.megadev.dailybet.command.AbstractCommand;
+import com.megadev.dailybet.config.ConfigManager;
+import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.manager.BetManager;
 import com.megadev.dailybet.manager.BetTaskManager;
+import com.megadev.dailybet.utils.chat.Color;
+import com.megadev.dailybet.utils.parse.ParsePlaceholder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -40,16 +44,26 @@ public class FakeBetAmountArg extends AbstractCommand {
 
     private void handleBet(Player user, int cash) {
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
+        MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
 
-//        BetEconomyHandler.subtract(fakePlayer, cash);
+        if (betManager == null) {
+            Color.sendMessage(user, messageConfig.getString("messages.command.not-started"));
+        }
+
         betManager.addBet(user, cash);
 
         if (betManager.isPresent(user)) {
-            user.sendMessage("§aВы успешно добавили сумму в свою ставку!");
+            Color.sendMessage(user, messageConfig.getString("messages.command.bet-added"));
         } else {
-            user.sendMessage("§aВы успешно поставили ставку!");
+            Color.sendMessage(user, messageConfig.getString("messages.command.bet-set"));
         }
 
-        user.sendMessage("&aВаш счёт на ставках: §e" + betManager.getInvestedCash(user) + "§a$");
+        String betBalance = messageConfig.getString("messages.command.bet-cash");
+
+        betBalance = ParsePlaceholder.parseWithBraces(betBalance,
+                new String[]{"BET_BALANCE"},
+                new Object[]{ betManager.getInvestedCash(user) });
+
+        Color.sendMessage(user, betBalance);
     }
 }

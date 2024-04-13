@@ -16,15 +16,11 @@ public class TopArg extends AbstractCommand {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         List<String> completions = new ArrayList<>();
 
-        if (args.length == 1) {//&& hasRights(sender)) {
+        if (args.length == 1) {
             completions.add("top");
         }
 
         return completions;
-    }
-
-    private boolean hasRights(CommandSender sender) {
-        return sender.hasPermission(getPermission()) || sender.isOp();
     }
 
     @Override

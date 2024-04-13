@@ -34,8 +34,6 @@ public class BetTaskManager {
     }
 
     public void startBetProcess(int points, Date date) {
-        System.out.println("It has began to be running: " + date);
-
         this.betManager = new BetManager(points);
         ConfigManager configManager = ConfigManager.getInstance();
 

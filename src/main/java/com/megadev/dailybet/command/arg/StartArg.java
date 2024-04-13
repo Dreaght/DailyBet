@@ -1,7 +1,9 @@
 package com.megadev.dailybet.command.arg;
 
 import com.megadev.dailybet.command.AbstractCommand;
+import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.manager.BetTaskManager;
+import com.megadev.dailybet.utils.chat.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,7 +32,7 @@ public class StartArg extends AbstractCommand {
     @Override
     public void commandHandler(Player user, String[] args) {
         if (BetTaskManager.getInstance().isRunning()) {
-            user.sendMessage("§cИ так запущено уже");
+            Color.sendMessage(user, ConfigManager.getInstance().getMessageConfig().getString("messages.command.already-running"));
             return;
         }
         handleCommand(user, args);

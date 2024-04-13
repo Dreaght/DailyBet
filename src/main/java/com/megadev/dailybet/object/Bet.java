@@ -6,9 +6,10 @@ import org.bukkit.Bukkit;
 import java.util.Objects;
 import java.util.UUID;
 
+@Getter
 public class Bet implements Comparable<Bet> {
-    @Getter private UUID uuid;
-    @Getter private double cash;
+    private final UUID uuid;
+    private double cash;
 
     public Bet(UUID uuid, int cash) {
         this.uuid = uuid;

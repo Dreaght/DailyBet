@@ -45,6 +45,10 @@ public abstract class Configurable {
         return config.get(key);
     }
 
+    public String getString(String key) {
+        return config.getString(key);
+    }
+
     public void setValue(String key, String value) {
         config.set(key, value);
         saveConfig();

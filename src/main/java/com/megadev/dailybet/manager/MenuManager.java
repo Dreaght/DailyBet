@@ -50,13 +50,17 @@ public class MenuManager {
         try {
             inventory = Bukkit.createInventory(
                     null, menuRows * 9,
-                    (String) ConfigManager.getInstance().getMessageConfig().getValue("messages.menu.title"));
+                    (String) ConfigManager.getInstance().getMessageConfig().getValue("menu.title"));
         } catch (IllegalArgumentException exception) {
             Bukkit.getLogger().severe("Invalid menu row value. Must be between 3 and 6.");
             Bukkit.getServer().getPluginManager().disablePlugin(plugin);
             return;
         }
 
+        fillEmpties();
+    }
+
+    private void fillEmpties() {
         for (int i = 0; i < menuRows * 9; i++) {
             ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
             ItemMeta itemMeta = item.getItemMeta();
@@ -129,6 +133,8 @@ public class MenuManager {
 
     private void fillHeads(List<ItemStack> targetHeads) {
         try {
+            fillEmpties();
+
             inventory.setItem(4, targetHeads.get(0));
             inventory.setItem(12, targetHeads.get(1));
             inventory.setItem(14, targetHeads.get(2));

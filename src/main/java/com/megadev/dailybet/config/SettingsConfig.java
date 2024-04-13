@@ -13,7 +13,7 @@ public class SettingsConfig extends Configurable {
 
     private static Map<String, Object> createDefaults() {
         Map<String, Object> defaults = new HashMap<>();
-        defaults.put("time-zone", "");
+        defaults.put("time-zone", "GMT+3");
         defaults.put("interval", "24h");
         return defaults;
     }

@@ -10,7 +10,7 @@ public class MenuListener implements Listener {
     public void onMenuClick(InventoryClickEvent event) {
         ConfigManager configManager = ConfigManager.getInstance();
 
-        if (!(event.getView().getTitle().equalsIgnoreCase((String) configManager.getMessageConfig().getValue("messages.menu.title")))) {
+        if (!(event.getView().getTitle().equalsIgnoreCase(configManager.getMessageConfig().getString("menu.title")))) {
             return;
         }
 
