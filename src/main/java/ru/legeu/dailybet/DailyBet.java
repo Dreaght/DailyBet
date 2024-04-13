@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import ru.legeu.dailybet.command.BetCommand;
 import ru.legeu.dailybet.config.ConfigManager;
+import ru.legeu.dailybet.listener.MenuListener;
 import ru.legeu.dailybet.manager.BetTaskManager;
 import ru.legeu.dailybet.manager.GiveawayManager;
 import ru.legeu.dailybet.manager.MenuManager;
@@ -32,6 +33,7 @@ public final class DailyBet extends JavaPlugin {
         GiveawayManager.init(this);
         MenuManager.init(this);
 
+        getServer().getPluginManager().registerEvents(new MenuListener(), this);
         Objects.requireNonNull(getCommand("bet")).setExecutor(new BetCommand());
     }
 

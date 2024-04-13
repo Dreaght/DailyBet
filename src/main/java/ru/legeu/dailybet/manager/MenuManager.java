@@ -19,10 +19,7 @@ import ru.legeu.dailybet.utils.BetManager;
 import ru.legeu.dailybet.utils.inventory.InventoryStateHandler;
 import ru.legeu.dailybet.utils.parse.ParsePlaceholder;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MenuManager {
     @Getter
@@ -39,7 +36,7 @@ public class MenuManager {
         ConfigManager configManager = ConfigManager.getInstance();
         menuRows = (int) configManager.getSettingsConfig().getValue("menu-rows");
         loadContent();
-        startUpdating(BetTaskManager.getInstance().getBetManager());
+        startUpdating();
         reopenInventoryForPlayers();
     }
 
@@ -88,21 +85,32 @@ public class MenuManager {
         return true;
     }
 
-    public void startUpdating(BetManager betManager) {
+    public void startUpdating() {
+        BetTaskManager betTaskManager = BetTaskManager.getInstance();
+
         BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                Set<Bet> bets = betManager.getBets();
+                BetManager betManager = betTaskManager.getBetManager();
+
+                Set<Bet> bets = new HashSet<>();
+                if (betManager != null) {
+                    bets = betManager.getBets();
+                }
 
                 List<ItemStack> targetHeads = getTargetHeads(bets);
 
-                inventory.setItem(4, targetHeads.get(0));
-                inventory.setItem(12, targetHeads.get(1));
-                inventory.setItem(14, targetHeads.get(2));
+                try {
+                    inventory.setItem(4, targetHeads.get(0));
+                    inventory.setItem(12, targetHeads.get(1));
+                    inventory.setItem(14, targetHeads.get(2));
 
-                for (int i = 19; i < 25; i++) {
-                    inventory.setItem(i, targetHeads.get(i - 19));
+                    for (int i = 19; i < 25; i++) {
+                        inventory.setItem(i, targetHeads.get(i - 19));
+                    }
+                } catch (Exception ignore) {
                 }
+
             }
         };
 
@@ -142,7 +150,7 @@ public class MenuManager {
         for (Bet bet : bets) {
             ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
-            Player player = bet.getPlayer();
+            Player player = Bukkit.getPlayer(bet.getPlayer());
 
             List<String> lore = new ArrayList<>();
 
@@ -159,10 +167,19 @@ public class MenuManager {
     }
 
     private void setDisplayName(Bet bet, SkullMeta skullMeta, MessageConfig messageConfig) {
-        Player player = bet.getPlayer();
+        Player player = Bukkit.getPlayer(bet.getPlayer());
+
+        String itsFuckingName;
+
+        if (player == null) {
+            itsFuckingName = "fake_" +  (int) (Math.random() * 4);
+        } else {
+            itsFuckingName = player.getName();
+        }
+
         skullMeta.setDisplayName(ParsePlaceholder.parseWithBraces((String) messageConfig.getValue("messages.menu.head.title"),
                 new String[]{"PLAYER_NAME", "AMOUNT"},
-                new Object[]{player.getName(), bet.getCash()
+                new Object[]{itsFuckingName, bet.getCash()
         }));
     }
 
@@ -170,8 +187,8 @@ public class MenuManager {
         lore.add(ParsePlaceholder.parseWithBraces((String) messageConfig.getValue("messages.menu.head.award"),
                 new String[]{"PERCENT", "AWARD"},
                 new Object[]{
-                        betManager.calcPercent(player),
-                        betManager.getUserAward(player)
+                        (int) (betManager.calcPercent(player) * 100),
+                        (int) betManager.getUserAward(player)
                 }));
     }
 }

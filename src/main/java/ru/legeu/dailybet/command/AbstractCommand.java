@@ -13,12 +13,11 @@ public abstract class AbstractCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (!(commandSender instanceof Player)) return false;
-        if (args.length == 0) return false;
         Player player = (Player) commandSender;
 
-        if (player.hasPermission(getPermission())) {
-            return false;
-        }
+//        if (player.hasPermission(getPermission())) {
+//            return false;
+//        }
 
         commandHandler(player, args);
 

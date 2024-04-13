@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import ru.legeu.dailybet.command.AbstractCommand;
 import ru.legeu.dailybet.manager.BetTaskManager;
+import ru.legeu.dailybet.manager.MenuManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class TopArg extends AbstractCommand {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         List<String> completions = new ArrayList<>();
 
-        if (args.length == 1 && hasRights(sender)) {
+        if (args.length == 1) {//&& hasRights(sender)) {
             completions.add("top");
         }
 
@@ -31,12 +32,10 @@ public class TopArg extends AbstractCommand {
     @Override
     public void commandHandler(Player player, String[] args) {
         handleCommand(player);
-
-        BetTaskManager.getInstance().stopBetProcess();
     }
 
     private void handleCommand(Player player) {
-        //TODO: JUST DO IT
+        player.openInventory(MenuManager.getInstance().getInventory());
     }
 
     @Override

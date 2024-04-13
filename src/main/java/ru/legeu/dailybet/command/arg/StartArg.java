@@ -46,7 +46,7 @@ public class StartArg extends AbstractCommand {
 
         try {
             Date date = ParseData.getDateTimeFromString(Arrays.copyOfRange(args, 2, args.length));
-            BetTaskManager.getInstance().startBetProcess(Integer.parseInt(args[0]), date);
+            BetTaskManager.getInstance().startBetProcess(Integer.parseInt(args[1]), date);
         } catch (ParseException e) {
             sendUsageMessage(player);
         }

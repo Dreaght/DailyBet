@@ -21,11 +21,12 @@ public class BetTaskManager {
     @Getter
     private BetDailyTimer betDailyTimer;
     @Getter
-    private final Timer timer;
+    private Timer timer;
 
     private BetTaskManager(Plugin plugin) {
         this.plugin = plugin;
         timer = new Timer();
+        betDailyTimer = new BetDailyTimer(plugin);
     }
 
     public static void init(Plugin plugin) {
@@ -41,11 +42,14 @@ public class BetTaskManager {
 
         date = ParseData.getTimezonedDate(date, timeZoneStr);
 
+        timer = new Timer();
         timer.schedule(betDailyTimer, date, ParsePeriod.getPeriodFromString(periodStr));
     }
 
     public void stopBetProcess() {
         timer.cancel();
+        timer = null;
+        betManager = null;
     }
 
     public boolean isRunning() {

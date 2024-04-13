@@ -1,19 +1,22 @@
 package ru.legeu.dailybet.command.arg;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
+import org.mockito.Mockito;
 import ru.legeu.dailybet.BetEconomyHandler;
 import ru.legeu.dailybet.command.AbstractCommand;
-import ru.legeu.dailybet.utils.BetManager;
 import ru.legeu.dailybet.manager.BetTaskManager;
+import ru.legeu.dailybet.utils.BetManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class BetAmountArg extends AbstractCommand {
+public class FakeBetAmountArg extends AbstractCommand {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         return new ArrayList<>();
@@ -25,7 +28,7 @@ public class BetAmountArg extends AbstractCommand {
             player.sendMessage("You can't do it right now!");
         }
 
-        int cash = Integer.parseInt(args[0]);
+        int cash = Integer.parseInt(args[1]);
 
         handleBet(player, cash);
     }
@@ -43,7 +46,7 @@ public class BetAmountArg extends AbstractCommand {
     private void handleBet(Player user, int cash) {
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
 
-        BetEconomyHandler.subtract(user.getPlayer(), cash);
+//        BetEconomyHandler.subtract(fakePlayer, cash);
         betManager.addBet(user, cash);
 
         if (betManager.isPresent(user)) {
@@ -53,8 +56,9 @@ public class BetAmountArg extends AbstractCommand {
         }
 
         user.sendMessage("&aВаш счёт на ставках: §e" + betManager.getInvestedCash(user) + "§a$");
-        user.sendMessage("Ваш процент: " + betManager.calcPercent(user) * 100 + "%");
-        user.sendMessage("Весь вложенный кеш: " + betManager.getTotalCash());
-        user.sendMessage("Ваша награда: " + betManager.getUserAward(user));
+    }
+
+    private Player createFakePlayer(String name) {
+        return (Player) Bukkit.getServer().createProfile(name);
     }
 }

@@ -17,7 +17,7 @@ public class ParseData {
     }
 
     public static Date getDateTimeFromString() throws ParseException {
-        String time = new SimpleDateFormat("hh:mm").format(new Date());
+        String time = new SimpleDateFormat("HH:mm").format(new Date());
         return getDateTimeFromString(time);
     }
 
@@ -27,11 +27,15 @@ public class ParseData {
     }
 
     public static Date getDateTimeFromString(String time, String date) throws ParseException {
-        SimpleDateFormat timeDateFormat = new SimpleDateFormat("hh:mm dd.MM.yyyy");
+        SimpleDateFormat timeDateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-        return timeDateFormat.parse(timeFormat.format(time) + dateFormat.format(date));
+        Date parsedTime = timeFormat.parse(time);
+        Date parsedDate = dateFormat.parse(date);
+
+        String combinedDateTimeString = timeFormat.format(parsedTime) + " " + dateFormat.format(parsedDate);
+        return timeDateFormat.parse(combinedDateTimeString);
     }
 
     public static Date getTimezonedDate(Date date, String timeZoneStr) {

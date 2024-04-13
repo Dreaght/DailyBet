@@ -8,9 +8,7 @@ import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import ru.legeu.dailybet.command.arg.StartArg;
-import ru.legeu.dailybet.command.arg.StopArg;
-import ru.legeu.dailybet.command.arg.BetAmountArg;
+import ru.legeu.dailybet.command.arg.*;
 
 import java.util.*;
 
@@ -21,6 +19,8 @@ public class BetCommand implements CommandExecutor, TabCompleter {
         this.subcommands = new HashMap<>();
         subcommands.put("start", new StartArg());
         subcommands.put("stop", new StopArg());
+        subcommands.put("top", new TopArg());
+        subcommands.put("fake", new FakeBetAmountArg());
     }
 
     @Override

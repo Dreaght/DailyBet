@@ -1,11 +1,13 @@
-package ru.legeu.dailybet.utils;
+package ru.legeu.dailybet.utils.parse;
 
 import org.junit.jupiter.api.Test;
-import ru.legeu.dailybet.utils.parse.ParseData;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ParseDataTest {
 
@@ -19,5 +21,14 @@ class ParseDataTest {
         String formattedDate = sdf.format(timezonedDate);
 
         System.out.println(formattedDate);
+    }
+
+    @Test
+    void getDateTimeFromString() throws ParseException {
+        String time = "07:27";
+        String date = "12.04.2024";
+
+        Date dateTime = ParseData.getDateTimeFromString(time, date);
+        System.out.println("Parsed date and time: " + dateTime);
     }
 }

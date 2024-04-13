@@ -1,2 +1,4 @@
 time-zone: ""
 interval: 1m
+
+menu-rows: 3

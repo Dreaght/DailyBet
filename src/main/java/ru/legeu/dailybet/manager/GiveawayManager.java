@@ -2,6 +2,7 @@ package ru.legeu.dailybet.manager;
 
 import lombok.Getter;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -29,10 +30,10 @@ public class GiveawayManager {
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
 
         for (Bet bet : getBets(betManager)) {
-            Player player = bet.getPlayer();
-            int points = betManager.getUserAward(player);
+            Player player = (Player) Bukkit.getOfflinePlayer(bet.getPlayer());
+            double points = betManager.getUserAward(player);
 
-            depositPoints(bet.getPlayer(), points);
+            depositPoints((Player) Bukkit.getOfflinePlayer(bet.getPlayer()), points);
 
             player.sendMessage("You received " + points + " points!");
         }
