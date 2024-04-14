@@ -105,6 +105,13 @@
             <systemPath>${project.basedir}/lib/nightcore-2.5.2.jar</systemPath>
         </dependency>
         <dependency>
+            <groupId>me.glaremasters</groupId>
+            <artifactId>MultiEconomy</artifactId>
+            <version>1.0.7-BETA</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/MultiEconomy-1.0.7-BETA.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.32</version>

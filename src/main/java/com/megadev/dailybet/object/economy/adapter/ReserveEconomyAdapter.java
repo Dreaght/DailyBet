@@ -2,12 +2,7 @@ package com.megadev.dailybet.object.economy.adapter;
 
 import org.bukkit.entity.Player;
 
-public class CoinsEngineAdapter implements EconomyAdapter, Currency {
-    @Override
-    public String getCurrency() {
-        return "";
-    }
-
+public class ReserveEconomyAdapter implements EconomyAdapter {
     @Override
     public boolean add(Player player, double amount) {
         return false;

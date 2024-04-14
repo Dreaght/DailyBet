@@ -1,4 +1,13 @@
 time-zone: "GMT+3"
-interval: 30s
+interval: 30s # Daily interval
 
-menu-rows: 3
+menu-rows: 3 # GUI Menu size. How many rows there.
+
+# SUPPORTED: ["Vault", "Reserve", "MultiEconomy", "CoinsEngine"]
+# NOTE: "Vault" does not support separated economies. It would add money to both plugin's "accounts"
+economy-from: "Vault" # Economy to take money from
+economy-to: "MultiEconomy" # Economy to give money to
+
+# OPTIONAL (Supported: ["MultiEconomy", "CoinsEngine"])
+economy-from-currency: "coins"
+economy-to-currency: "coins"

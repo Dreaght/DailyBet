@@ -2,6 +2,7 @@ package com.megadev.dailybet.object.economy.adapter;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+
 import org.bukkit.entity.Player;
 
 public class VaultEconomyAdapter implements EconomyAdapter {
