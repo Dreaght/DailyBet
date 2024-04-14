@@ -1,13 +1,15 @@
 package com.megadev.dailybet.object.economy;
 
+import com.megadev.dailybet.object.economy.adapter.EconomyAdapter;
+
 public class EconomyInstaller {
 
-    public static void setEconomyFrom(String economyName) {
-
+    public static EconomyAdapter setEconomyFrom(String economyName) {
+        return null;
     }
 
-    public static void setEconomyTo(String economyName) {
-
+    public static EconomyAdapter setEconomyTo(String economyName) {
+        return null;
     }
 
 }
