@@ -5,6 +5,7 @@ import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.manager.BetManager;
 import com.megadev.dailybet.manager.BetTaskManager;
+import com.megadev.dailybet.object.economy.EconomyFrom;
 import com.megadev.dailybet.util.chat.Color;
 import com.megadev.dailybet.util.parse.ParsePlaceholder;
 import org.bukkit.command.Command;
@@ -52,7 +53,7 @@ public class BetAmountArg extends AbstractCommand {
             Color.sendMessage(user, messageConfig.getString("messages.command.not-started"));
         }
 
-        BetEconomyHandler.getInstance().subtract(user.getPlayer(), cash);
+        EconomyFrom.withdraw(user, cash);
         betManager.addBet(user, cash);
 
         if (betManager.isPresent(user)) {
