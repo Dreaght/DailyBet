@@ -3,7 +3,7 @@ package com.megadev.dailybet.object.economy;
 import org.bukkit.entity.Player;
 
 public class EconomyTo {
-    public static boolean deposit(Player player, int amount) {
+    public static boolean deposit(Player player, double amount) {
         return EconomyType.ECONOMY_TO.getAdapter().add(player, amount);
     }
 
@@ -19,6 +19,3 @@ public class EconomyTo {
         return EconomyType.ECONOMY_TO.getAdapter().getBalance(player);
     }
 }
-
-// EconomyTo.deposit(Player player, int amount); CONFIG: MultiEconomy | Call -> MultiEconomyAdapter.deposit()
-// EconomyFrom.withdraw(Player player, int amount); CONFIG: Vault | Call -> VaultEconomyAdapter.withdraw()

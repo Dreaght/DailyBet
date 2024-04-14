@@ -2,6 +2,7 @@ package com.megadev.dailybet.manager;
 
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
+import com.megadev.dailybet.object.economy.EconomyTo;
 import com.megadev.dailybet.util.chat.Color;
 import com.megadev.dailybet.util.parse.ParsePlaceholder;
 
@@ -60,7 +61,7 @@ public class GiveawayManager {
     }
 
     private void depositPoints(Player player, double points) {
-        BetEconomyHandler.getInstance().addCoins(player, points);
+        EconomyTo.deposit(player, points);
     }
 
     private Set<Bet> getBets(BetManager betManager) {
