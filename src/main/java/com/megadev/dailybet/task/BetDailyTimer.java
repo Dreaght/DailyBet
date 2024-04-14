@@ -1,4 +1,4 @@
-package com.megadev.dailybet.tasks;
+package com.megadev.dailybet.task;
 
 import com.megadev.dailybet.manager.BetTaskManager;
 import com.megadev.dailybet.manager.GiveawayManager;

@@ -2,6 +2,7 @@ package com.megadev.dailybet;
 
 import lombok.Getter;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.megadev.dailybet.command.BetCommand;
@@ -10,7 +11,7 @@ import com.megadev.dailybet.listener.MenuListener;
 import com.megadev.dailybet.manager.BetTaskManager;
 import com.megadev.dailybet.manager.GiveawayManager;
 import com.megadev.dailybet.manager.MenuManager;
-import com.megadev.dailybet.utils.inventory.InventoryStateHandler;
+import com.megadev.dailybet.util.inventory.InventoryStateHandler;
 
 import java.util.Objects;
 
@@ -37,7 +38,8 @@ public final class DailyBet extends JavaPlugin {
     public void onDisable() {
         try {
             InventoryStateHandler.saveInventory(MenuManager.getInstance().getInventory(), this);
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException exception) {
+            Bukkit.getLogger().warning("Tried to save an inventory, but it does not exist yet!");
         }
     }
 }

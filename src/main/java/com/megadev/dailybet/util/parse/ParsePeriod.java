@@ -1,4 +1,4 @@
-package com.megadev.dailybet.utils.parse;
+package com.megadev.dailybet.util.parse;
 
 public class ParsePeriod {
     public static long getPeriodFromString(String periodStr) {

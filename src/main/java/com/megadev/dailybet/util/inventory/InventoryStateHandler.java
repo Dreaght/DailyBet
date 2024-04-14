@@ -1,6 +1,6 @@
-package com.megadev.dailybet.utils.inventory;
+package com.megadev.dailybet.util.inventory;
 
-import com.megadev.dailybet.utils.FileManager;
+import com.megadev.dailybet.util.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

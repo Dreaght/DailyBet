@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.object.Bet;
-import com.megadev.dailybet.utils.inventory.InventoryStateHandler;
+import com.megadev.dailybet.util.inventory.InventoryStateHandler;
 
 import java.util.*;
 

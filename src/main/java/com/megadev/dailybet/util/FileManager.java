@@ -1,4 +1,4 @@
-package com.megadev.dailybet.utils;
+package com.megadev.dailybet.util;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -3,13 +3,13 @@ package com.megadev.dailybet.command.arg;
 import com.megadev.dailybet.command.AbstractCommand;
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.manager.BetTaskManager;
-import com.megadev.dailybet.utils.chat.Color;
+import com.megadev.dailybet.util.chat.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import com.megadev.dailybet.utils.parse.ParseData;
+import com.megadev.dailybet.util.parse.ParseData;
 
 import java.text.ParseException;
 import java.util.ArrayList;

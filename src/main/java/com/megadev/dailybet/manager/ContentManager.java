@@ -5,7 +5,7 @@ import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.object.Bet;
 import com.megadev.dailybet.object.menu.Head;
-import com.megadev.dailybet.utils.parse.ParsePlaceholder;
+import com.megadev.dailybet.util.parse.ParsePlaceholder;
 
 import java.util.ArrayList;
 import java.util.List;

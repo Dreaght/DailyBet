@@ -1,4 +1,4 @@
-package com.megadev.dailybet.utils.chat;
+package com.megadev.dailybet.util.chat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

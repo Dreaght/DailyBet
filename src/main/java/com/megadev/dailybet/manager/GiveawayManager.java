@@ -2,8 +2,8 @@ package com.megadev.dailybet.manager;
 
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
-import com.megadev.dailybet.utils.chat.Color;
-import com.megadev.dailybet.utils.parse.ParsePlaceholder;
+import com.megadev.dailybet.util.chat.Color;
+import com.megadev.dailybet.util.parse.ParsePlaceholder;
 
 import lombok.Getter;
 

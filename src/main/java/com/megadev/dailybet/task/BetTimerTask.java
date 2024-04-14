@@ -1,4 +1,4 @@
-package com.megadev.dailybet.tasks;
+package com.megadev.dailybet.task;
 
 import org.bukkit.plugin.Plugin;
 

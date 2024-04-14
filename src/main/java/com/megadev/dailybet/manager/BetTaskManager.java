@@ -5,9 +5,9 @@ import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 
 import com.megadev.dailybet.config.ConfigManager;
-import com.megadev.dailybet.tasks.BetDailyTimer;
-import com.megadev.dailybet.utils.parse.ParseData;
-import com.megadev.dailybet.utils.parse.ParsePeriod;
+import com.megadev.dailybet.task.BetDailyTimer;
+import com.megadev.dailybet.util.parse.ParseData;
+import com.megadev.dailybet.util.parse.ParsePeriod;
 
 import java.util.Date;
 import java.util.Timer;

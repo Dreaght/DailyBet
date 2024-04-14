@@ -1,4 +1,4 @@
-package com.megadev.dailybet.utils.parse;
+package com.megadev.dailybet.util.parse;
 
 public class ParsePlaceholder {
     public static String parseWithBraces(String configString, String[] replacements, Object[] values) {
