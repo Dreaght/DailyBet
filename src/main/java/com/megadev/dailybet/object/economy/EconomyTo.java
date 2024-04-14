@@ -1,22 +1,24 @@
 package com.megadev.dailybet.object.economy;
 
-import com.megadev.dailybet.config.ConfigManager;
-import com.megadev.dailybet.config.MessageConfig;
 import org.bukkit.entity.Player;
 
 public class EconomyTo {
-
     public static boolean deposit(Player player, int amount) {
-        MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
-//        switch () {
-//
-//        }
-        return false;
+        return EconomyType.ECONOMY_TO.getAdapter().add(player, amount);
     }
 
     public static boolean withdraw(Player player, int amount) {
-        return false;
+        return EconomyType.ECONOMY_TO.getAdapter().subtract(player, amount);
     }
 
-} // EconomyTo.deposit(Player player, int amount); CONFIG: MultiEconomy | Call -> MultiEconomyAdapter.deposit()
+    public static boolean setBalance(Player player, int amount) {
+        return EconomyType.ECONOMY_TO.getAdapter().setBalance(player, amount);
+    }
+
+    public static double getBalance(Player player) {
+        return EconomyType.ECONOMY_TO.getAdapter().getBalance(player);
+    }
+}
+
+// EconomyTo.deposit(Player player, int amount); CONFIG: MultiEconomy | Call -> MultiEconomyAdapter.deposit()
 // EconomyFrom.withdraw(Player player, int amount); CONFIG: Vault | Call -> VaultEconomyAdapter.withdraw()
