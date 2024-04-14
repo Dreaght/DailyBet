@@ -12,7 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import com.megadev.dailybet.BetEconomyHandler;
 import com.megadev.dailybet.object.Bet;
 
 import java.util.Set;

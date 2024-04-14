@@ -28,8 +28,6 @@ public final class DailyBet extends JavaPlugin {
         GiveawayManager.init(this);
         MenuManager.init(this);
 
-        BetEconomyHandler.init(this);
-
         getServer().getPluginManager().registerEvents(new MenuListener(), this);
         Objects.requireNonNull(getCommand("bet")).setExecutor(new BetCommand());
     }
