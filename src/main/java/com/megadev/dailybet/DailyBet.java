@@ -40,6 +40,8 @@ public final class DailyBet extends JavaPlugin {
             Bukkit.dispatchCommand(Bukkit.getPlayer("Dreaght"), "bet 10");
         }, 50);
 
+
+
     }
 
     @Override
