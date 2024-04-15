@@ -11,6 +11,7 @@ public class BetDailyTimer extends BetTimerTask {
 
     @Override
     public void run() {
+        if (BetTaskManager.getInstance().getBetManager() == null) cancel();
         GiveawayManager.getInstance().distribute();
         BetTaskManager.getInstance().restartBetManager();
     }

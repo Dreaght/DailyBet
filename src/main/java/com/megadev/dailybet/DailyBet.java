@@ -1,5 +1,6 @@
 package com.megadev.dailybet;
 
+import com.megadev.dailybet.object.economy.EconomyHandler;
 import lombok.Getter;
 
 import org.bukkit.Bukkit;
@@ -30,6 +31,15 @@ public final class DailyBet extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new MenuListener(), this);
         Objects.requireNonNull(getCommand("bet")).setExecutor(new BetCommand());
+
+        EconomyHandler.installEconomies();
+
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+
+            Bukkit.dispatchCommand(Bukkit.getPlayer("Dreaght"), "bet start 100");
+            Bukkit.dispatchCommand(Bukkit.getPlayer("Dreaght"), "bet 10");
+        }, 50);
+
     }
 
     @Override

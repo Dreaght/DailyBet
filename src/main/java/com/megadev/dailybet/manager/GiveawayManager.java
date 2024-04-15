@@ -34,10 +34,13 @@ public class GiveawayManager {
         MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
 
-        String eventFinished = ParsePlaceholder.parseWithBraces(messageConfig.getString("messages.event-finished"),
+        String stringPoints = messageConfig.getString("messages.event-finished");
+
+        stringPoints = ParsePlaceholder.parseWithBraces(stringPoints,
                 new String[]{"POINTS"},
-                new Object[]{betManager.getPoints()});
-        Color.broadcastMessage(eventFinished);
+                new Object[]{ betManager.getPoints() });
+
+        Color.broadcastMessage(stringPoints);
 
         for (Bet bet : getBets(betManager)) {
             handleBet(bet);

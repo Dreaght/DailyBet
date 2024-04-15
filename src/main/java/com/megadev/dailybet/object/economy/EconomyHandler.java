@@ -1,13 +1,18 @@
 package com.megadev.dailybet.object.economy;
 
 import com.megadev.dailybet.DailyBet;
+import com.megadev.dailybet.config.ConfigManager;
+import com.megadev.dailybet.config.SettingsConfig;
 import com.megadev.dailybet.event.PreInstallEconomyFromEvent;
 import com.megadev.dailybet.event.PreInstallEconomyToEvent;
 import com.megadev.dailybet.object.economy.adapter.*;
 
+import lombok.Getter;
+
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Bukkit;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
@@ -29,8 +34,6 @@ public class EconomyHandler {
         Bukkit.getPluginManager().callEvent(event);
 
         economyFrom = event.getEconomyFrom();
-
-        return economyFrom;
     }
 
     private static void installEconomyTo(String economyName) {
@@ -40,8 +43,6 @@ public class EconomyHandler {
         Bukkit.getPluginManager().callEvent(event);
 
         economyTo = event.getEconomyTo();
-
-        return economyTo;
     }
 
     private static EconomyAdapter getEconomyAdapter(String economyName) {

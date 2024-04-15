@@ -51,15 +51,23 @@ public class BetTaskManager {
         betDailyTimer.runTaskTimer(plugin, ParseData.difference(date, finalDate) / 50, period / 50);
     }
 
+    public void safeDeleteBetProcess() {
+        if (betManager != null) {
+            betManager = null;
+        }
+    }
+
     public void removeBetProcess() {
-        betDailyTimer.cancel();
-        timer.cancel();
+        if (betDailyTimer != null && !betDailyTimer.isCancelled()) {
+            betDailyTimer.cancel();
+        }
+
+        betDailyTimer = new BetDailyTimer(plugin);
+        betManager = null;
     }
 
     public void restartBetManager() {
         int points = betManager.getPoints();
-
-        this.betManager = null;
 
         this.betManager = new BetManager(points);
     }

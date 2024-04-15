@@ -21,11 +21,14 @@ messages:
   command:
     event-started: "&aEvent has been started!"
     not-started: "&cEvent has not started yet!"
+    input-points: "&cPlease input the points!"
+    incorrect-cash: "&cInput the correct positive number!"
     event-stopped: "&cEvent stopped!"
     already-running: "&cEvent is already running!"
     bet-set: "&aYou have set your bet successfully!"
     bet-added: "&aYou have successfully added a new sum to your bet!"
     bet-cash: "&cYour current balance is %BET_BALANCE%" # %BET_BALANCE%
     not-permission: "&cYou have no permission to do that!"
+    not-enought-cash: "&cYou don't have enough cash!"
   event-finished: "&aEvent finished! Everyone were awarded for %POINTS% points!" # %POINTS%
   received: "&aYou have received %AWARD% points!" # %AWARD%

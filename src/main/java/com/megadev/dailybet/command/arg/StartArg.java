@@ -35,6 +35,12 @@ public class StartArg extends AbstractCommand {
             Color.sendMessage(user, ConfigManager.getInstance().getMessageConfig().getString("messages.command.already-running"));
             return;
         }
+        if (args.length < 2) {
+            String inputPoints = ConfigManager.getInstance().getMessageConfig().getString("messages.command.input-points");
+            Color.sendMessage(user, inputPoints);
+            return;
+        }
+
         handleCommand(user, args);
     }
 
@@ -59,6 +65,7 @@ public class StartArg extends AbstractCommand {
 
             Date date = ParseData.getDateTimeFromString(Arrays.copyOfRange(args, 2, args.length));
             BetTaskManager.getInstance().startBetProcess(Integer.parseInt(args[1]), date);
+            Color.sendMessage(player, ConfigManager.getInstance().getMessageConfig().getString("messages.command.event-started"));
         } catch (ParseException e) {
             sendUsageMessage(player);
         }
