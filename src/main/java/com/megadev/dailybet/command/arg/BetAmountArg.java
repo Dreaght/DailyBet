@@ -6,11 +6,14 @@ import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.manager.BetManager;
 import com.megadev.dailybet.manager.BetTaskManager;
 import com.megadev.dailybet.object.economy.EconomyFrom;
+import com.megadev.dailybet.object.economy.EconomyTo;
 import com.megadev.dailybet.util.chat.Color;
 import com.megadev.dailybet.util.parse.ParsePlaceholder;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -24,11 +27,22 @@ public class BetAmountArg extends AbstractCommand {
 
     @Override
     public void commandHandler(Player player, String[] args) {
+        MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
         if (!BetTaskManager.getInstance().isRunning()) {
-            Color.sendMessage(player, ConfigManager.getInstance().getMessageConfig().getString("messages.command.already-running"));
+            Color.sendMessage(player, messageConfig.getString("messages.command.already-running"));
         }
 
         int cash = Integer.parseInt(args[0]);
+
+        if (cash < 1) {
+            Color.sendMessage(player, messageConfig.getString("messages.command.incorrect-cash"));
+            return;
+        }
+
+        if (EconomyFrom.getBalance(player) < cash) {
+            Color.sendMessage(player, messageConfig.getString("messages.command.not-enought-cash"));
+            return;
+        }
 
         handleBet(player, cash);
     }
@@ -49,6 +63,7 @@ public class BetAmountArg extends AbstractCommand {
 
         if (betManager == null) {
             Color.sendMessage(user, messageConfig.getString("messages.command.not-started"));
+            return;
         }
 
         EconomyFrom.withdraw(user, cash);

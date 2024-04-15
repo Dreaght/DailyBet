@@ -29,6 +29,10 @@ public class FakeBetAmountArg extends AbstractCommand {
 
         int cash = Integer.parseInt(args[1]);
 
+        if (cash < 0) {
+            Color.sendMessage(player, ConfigManager.getInstance().getMessageConfig().getString("messages.command.incorrect-cash"));
+        }
+
         handleBet(player, cash);
     }
 

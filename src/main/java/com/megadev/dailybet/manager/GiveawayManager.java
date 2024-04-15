@@ -40,23 +40,30 @@ public class GiveawayManager {
         Color.broadcastMessage(eventFinished);
 
         for (Bet bet : getBets(betManager)) {
-            Player player = Bukkit.getPlayer(bet.getUuid());
-            if (player == null) {
-                continue;
-            }
-
-            double award = betManager.getUserAward(player);
-
-            depositPoints(player, award);
-
-            String stringAward = messageConfig.getString("messages.received");
-
-            stringAward = ParsePlaceholder.parseWithBraces(stringAward,
-                    new String[]{"AWARD"},
-                    new Object[]{ award });
-
-            Color.sendMessage(player, stringAward);
+            handleBet(bet);
         }
+    }
+
+    private void handleBet(Bet bet) {
+        MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
+        BetManager betManager = BetTaskManager.getInstance().getBetManager();
+
+        Player player = Bukkit.getPlayer(bet.getUuid());
+        if (player == null) {
+            return;
+        }
+
+        double award = betManager.getUserAward(player);
+
+        depositPoints(player, award);
+
+        String stringAward = messageConfig.getString("messages.received");
+
+        stringAward = ParsePlaceholder.parseWithBraces(stringAward,
+                new String[]{"AWARD"},
+                new Object[]{ award });
+
+        Color.sendMessage(player, stringAward);
     }
 
     private void depositPoints(Player player, double points) {

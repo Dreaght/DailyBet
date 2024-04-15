@@ -1,10 +1,9 @@
 package com.megadev.dailybet.task;
 
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.TimerTask;
-
-public abstract class BetTimerTask extends TimerTask {
+public abstract class BetTimerTask extends BukkitRunnable {
     protected final Plugin plugin;
 
     public BetTimerTask(Plugin plugin) {

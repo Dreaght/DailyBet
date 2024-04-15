@@ -1,1 +1,2 @@
-com\megadev\dailybet\utils\parse\ParseDataTest.class
+com\megadev\dailybet\util\parse\ParseDataTest.class
+com\megadev\dailybet\util\parse\ParsePlaceholderTest.class

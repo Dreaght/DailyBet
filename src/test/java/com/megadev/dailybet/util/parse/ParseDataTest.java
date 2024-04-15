@@ -29,4 +29,13 @@ class ParseDataTest {
         Date dateTime = ParseData.getDateTimeFromString(time, date);
         System.out.println("Parsed date and time: " + dateTime);
     }
+
+    @Test
+    void difference() {
+        Date date1 = new Date();
+        Date date2 = new Date();
+
+        long diff = ParseData.difference(date1, date2);
+        assert diff == 0;
+    }
 }

@@ -11,10 +11,19 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-public class EconomyInstaller {
+public class EconomyHandler {
+    @Getter private static EconomyAdapter economyFrom;
+    @Getter private static EconomyAdapter economyTo;
 
-    public static EconomyAdapter setEconomyFrom(String economyName) {
-        EconomyAdapter economyFrom = getEconomyAdapter(economyName);
+    public static void installEconomies() {
+        SettingsConfig config = ConfigManager.getInstance().getSettingsConfig();
+
+        installEconomyFrom(config.getString("economy-from"));
+        installEconomyTo(config.getString("economy-to"));
+    }
+
+    private static void installEconomyFrom(String economyName) {
+        economyFrom = getEconomyAdapter(economyName);
 
         PreInstallEconomyFromEvent event = new PreInstallEconomyFromEvent(economyFrom);
         Bukkit.getPluginManager().callEvent(event);
@@ -24,8 +33,8 @@ public class EconomyInstaller {
         return economyFrom;
     }
 
-    public static EconomyAdapter setEconomyTo(String economyName) {
-        EconomyAdapter economyTo = getEconomyAdapter(economyName);
+    private static void installEconomyTo(String economyName) {
+        economyTo = getEconomyAdapter(economyName);
 
         PreInstallEconomyToEvent event = new PreInstallEconomyToEvent(economyTo);
         Bukkit.getPluginManager().callEvent(event);

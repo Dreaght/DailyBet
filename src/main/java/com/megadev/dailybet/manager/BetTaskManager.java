@@ -10,7 +10,6 @@ import com.megadev.dailybet.util.parse.ParseData;
 import com.megadev.dailybet.util.parse.ParsePeriod;
 
 import java.util.Date;
-import java.util.Timer;
 
 public class BetTaskManager {
     @Getter
@@ -21,12 +20,9 @@ public class BetTaskManager {
     private BetManager betManager;
     @Getter
     private BetDailyTimer betDailyTimer;
-    @Getter
-    private Timer timer;
 
     private BetTaskManager(Plugin plugin) {
         this.plugin = plugin;
-        betDailyTimer = new BetDailyTimer(plugin);
     }
 
     public static void init(Plugin plugin) {
@@ -46,9 +42,13 @@ public class BetTaskManager {
 
         Date finalDate = new Date(date.getTime() + period);
 
-        timer = new Timer();
+        System.out.println(date);
+        System.out.println(finalDate);
 
-        timer.scheduleAtFixedRate(betDailyTimer, finalDate, period);
+        System.out.println(ParseData.difference(date, finalDate));
+
+        betDailyTimer = new BetDailyTimer(plugin);
+        betDailyTimer.runTaskTimer(plugin, ParseData.difference(date, finalDate) / 50, period / 50);
     }
 
     public void removeBetProcess() {

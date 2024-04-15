@@ -51,4 +51,11 @@ public class ParseData {
         }
     }
 
+    public static long difference(Date date1, Date date2) {
+        long milliseconds1 = date1.getTime();
+        long milliseconds2 = date2.getTime();
+
+        long differenceMillis = milliseconds2 - milliseconds1;
+        return differenceMillis;
+    }
 }

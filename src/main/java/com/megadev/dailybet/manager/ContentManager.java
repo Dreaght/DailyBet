@@ -48,7 +48,7 @@ public class ContentManager {
     }
 
     private void setTitle(Head head, Bet bet) {
-        String messageConfigStr = messageConfig.getString("messages.menu.head.title");
+        String messageConfigStr = messageConfig.getString("menu.head.title");
 
         String title = ParsePlaceholder.parseWithBraces(messageConfigStr,
                 new String[]{"PLAYER_NAME", "AMOUNT"},
@@ -59,7 +59,7 @@ public class ContentManager {
     private void setLore(Head head, Bet bet) {
         List<String> lore = new ArrayList<>();
 
-        String messageCfgStr = messageConfig.getString("messages.menu.head.lore");
+        String messageCfgStr = messageConfig.getString("menu.head.lore");
         int userPercent = getBetPercent(bet);
         int userAward = getBetAward(bet);
 

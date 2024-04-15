@@ -9,13 +9,7 @@ public class Color {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
 
-    public static void sendMessageToAll(String message) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            sendMessage(player, message);
-        }
-    }
-
     public static void broadcastMessage(String message) {
-        Bukkit.broadcastMessage(message);
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
 }

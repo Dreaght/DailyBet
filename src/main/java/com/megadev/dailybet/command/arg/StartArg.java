@@ -47,6 +47,16 @@ public class StartArg extends AbstractCommand {
             return;
 
         try {
+            if (args.length < 2) {
+                sendUsageMessage(player);
+                return;
+            }
+
+            if (Integer.parseInt(args[1]) < 0) {
+                Color.sendMessage(player, ConfigManager.getInstance().getMessageConfig().getString("messages.command.incorrect-cash"));
+                return;
+            }
+
             Date date = ParseData.getDateTimeFromString(Arrays.copyOfRange(args, 2, args.length));
             BetTaskManager.getInstance().startBetProcess(Integer.parseInt(args[1]), date);
         } catch (ParseException e) {

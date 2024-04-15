@@ -36,10 +36,8 @@ public class StopArg extends AbstractCommand {
         }
         if (BetTaskManager.getInstance().isRunning()) {
             Color.sendMessage(player, ConfigManager.getInstance().getMessageConfig().getString("messages.command.event-stopped"));
-            return;
+            BetTaskManager.getInstance().removeBetProcess();
         }
-
-        BetTaskManager.getInstance().getTimer().cancel();
     }
 
     @Override

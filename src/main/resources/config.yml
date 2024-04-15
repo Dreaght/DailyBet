@@ -1,5 +1,5 @@
 time-zone: "GMT+3"
-interval: 30s # Daily interval
+interval: 5s # Daily interval
 
 menu-rows: 3 # GUI Menu size. How many rows there.
 
