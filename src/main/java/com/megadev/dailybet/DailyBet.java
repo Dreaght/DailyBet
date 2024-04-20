@@ -34,14 +34,6 @@ public final class DailyBet extends JavaPlugin {
 
         EconomyHandler.installEconomies();
 
-        Bukkit.getScheduler().runTaskLater(this, () -> {
-
-            Bukkit.dispatchCommand(Bukkit.getPlayer("Dreaght"), "bet start 100");
-            Bukkit.dispatchCommand(Bukkit.getPlayer("Dreaght"), "bet 10");
-        }, 50);
-
-
-
     }
 
     @Override

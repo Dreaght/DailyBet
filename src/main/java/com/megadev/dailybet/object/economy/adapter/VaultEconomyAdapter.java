@@ -29,7 +29,7 @@ public class VaultEconomyAdapter implements EconomyAdapter {
 
     @Override
     public boolean setBalance(Player player, double amount) {
-        double currentBalance = getBalance(player);
+        double currentBalance = this.getBalance(player);
         double diff = Math.abs(amount - currentBalance);
 
         if (amount > currentBalance) {

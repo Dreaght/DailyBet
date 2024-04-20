@@ -39,6 +39,6 @@ public class TopArg extends AbstractCommand {
 
     @Override
     public String getPermission() {
-        return "bet.command.top";
+        return "";
     }
 }

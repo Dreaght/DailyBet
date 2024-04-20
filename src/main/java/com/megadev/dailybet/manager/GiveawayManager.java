@@ -64,7 +64,7 @@ public class GiveawayManager {
 
         stringAward = ParsePlaceholder.parseWithBraces(stringAward,
                 new String[]{"AWARD"},
-                new Object[]{ award });
+                new Object[]{ (int) award });
 
         Color.sendMessage(player, stringAward);
     }

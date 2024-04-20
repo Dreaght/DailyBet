@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="DailyBet:jar">
-    <output-path>$USER_HOME$/Desktop/TRASH</output-path>
+    <output-path>$USER_HOME$/Desktop</output-path>
     <root id="archive" name="DailyBet.jar">
       <element id="module-output" name="DailyBet" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy-agent/1.11.13/byte-buddy-agent-1.11.13.jar" path-in-jar="/" />

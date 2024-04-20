@@ -45,7 +45,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <outputDirectory>C:\Users\nikit\Desktop\MegaDevTests\plugins</outputDirectory>
+                    <outputDirectory>D:\intellij\plugins artifacts</outputDirectory>
                     <finalName>DailyBet</finalName>
                 </configuration>
             </plugin>
@@ -120,11 +120,6 @@
             <groupId>net.essentialsx</groupId>
             <artifactId>EssentialsX</artifactId>
             <version>2.21.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.essentialsx</groupId>
-            <artifactId>EssentialsX</artifactId>
-            <version>2.21.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -137,24 +132,6 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>24.1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.10.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>3.12.4</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

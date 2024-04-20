@@ -19,7 +19,6 @@ public class BetCommand implements CommandExecutor, TabCompleter {
         subcommands.put("start", new StartArg());
         subcommands.put("stop", new StopArg());
         subcommands.put("top", new TopArg());
-        subcommands.put("fake", new FakeBetAmountArg());
     }
 
     @Override

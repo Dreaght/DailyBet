@@ -17,7 +17,6 @@ com\megadev\dailybet\event\PreInstallEconomyFromEvent.class
 com\megadev\dailybet\object\economy\adapter\Currency.class
 com\megadev\dailybet\event\GiveawayEvent.class
 com\megadev\dailybet\command\AbstractCommand.class
-com\megadev\dailybet\command\arg\FakeBetAmountArg.class
 com\megadev\dailybet\object\economy\EconomyFrom.class
 com\megadev\dailybet\util\parse\ParseData.class
 com\megadev\dailybet\manager\ContentManager.class

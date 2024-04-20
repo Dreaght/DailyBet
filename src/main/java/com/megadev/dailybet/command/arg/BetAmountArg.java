@@ -40,7 +40,7 @@ public class BetAmountArg extends AbstractCommand {
         }
 
         if (EconomyFrom.getBalance(player) < cash) {
-            Color.sendMessage(player, messageConfig.getString("messages.command.not-enought-cash"));
+            Color.sendMessage(player, messageConfig.getString("messages.command.not-enough-cash"));
             return;
         }
 
