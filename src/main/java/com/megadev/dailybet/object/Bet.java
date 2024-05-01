@@ -35,6 +35,11 @@ public class Bet implements Comparable<Bet> {
 
     @Override
     public int compareTo(Bet otherBet) {
+
+        if (this.getCash() == otherBet.getCash()) {
+            return 1;
+        }
+
         return Double.compare(this.getCash(), otherBet.getCash());
     }
 }

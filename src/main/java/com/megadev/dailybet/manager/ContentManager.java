@@ -30,6 +30,7 @@ public class ContentManager {
     }
 
     public List<ItemStack> getTargetHeads() {
+
         List<ItemStack> targetHeads = new ArrayList<>();
 
         for (Bet bet : bets) {

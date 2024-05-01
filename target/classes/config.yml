@@ -9,7 +9,7 @@ interval: 24h # Daily interval
 
 menu-rows: 3 # GUI Menu size. How many rows there.
 
-# SUPPORTED: ["Vault", "-Reserve-", "MultiEconomy", "-CoinsEngine-"]
+# SUPPORTED: ["Vault", "Reserve", "MultiEconomy", "CoinsEngine"]
 # NOTE: "Vault" does not support separated economies. It would add money to both plugin's "accounts"
 economy-from: "Vault" # Economy to take money from
 economy-to: "MultiEconomy" # Economy to give money to
