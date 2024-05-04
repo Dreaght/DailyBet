@@ -5,11 +5,13 @@ import com.megadev.dailybet.object.economy.EconomyHandler;
 
 import me.glaremasters.multieconomy.api.API;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public class MultiEconomyAdapter implements EconomyAdapter, Currency {
+    public MultiEconomyAdapter() {
+    }
 
-    @Override
     public String getCurrency() {
         if (EconomyHandler.getEconomyFrom() instanceof MultiEconomyAdapter)
             return ConfigManager.getInstance().getSettingsConfig().getString("economy-from-currency");
@@ -18,9 +20,9 @@ public class MultiEconomyAdapter implements EconomyAdapter, Currency {
         }
     }
 
-    @Override
-    public boolean add(Player player, double amount) {
+    public boolean add(OfflinePlayer player, double amount) {
         String uuid = player.getUniqueId().toString();
+
         if (dataExist(player)) {
             double balance = getBalance(player);
 
@@ -34,9 +36,9 @@ public class MultiEconomyAdapter implements EconomyAdapter, Currency {
         return true;
     }
 
-    @Override
-    public boolean subtract(Player player, double amount) {
+    public boolean subtract(OfflinePlayer player, double amount) {
         String uuid = player.getUniqueId().toString();
+
         if (dataExist(player)) {
             API.setAmount(uuid, getCurrency(), (int) (getBalance(player) - amount));
             return true;
@@ -44,18 +46,18 @@ public class MultiEconomyAdapter implements EconomyAdapter, Currency {
         return true;
     }
 
-    @Override
-    public double getBalance(Player player) {
+    public double getBalance(OfflinePlayer player) {
         String uuid = player.getUniqueId().toString();
+
         if (dataExist(player)) {
             return Double.parseDouble(API.getAmount(uuid, getCurrency()));
         }
         return 0;
     }
 
-    @Override
-    public boolean setBalance(Player player, double amount) {
+    public boolean setBalance(OfflinePlayer player, double amount) {
         String uuid = player.getUniqueId().toString();
+
         if (dataExist(player)) {
             API.setAmount(uuid, getCurrency(), (int) amount);
             return true;

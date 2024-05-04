@@ -1,5 +1,6 @@
 package com.megadev.dailybet.manager;
 
+import com.megadev.dailybet.object.menu.Menu;
 import lombok.Getter;
 
 import org.bukkit.Bukkit;
@@ -20,95 +21,91 @@ import java.util.*;
 public class MenuManager {
     @Getter
     private static MenuManager instance;
-    private Plugin plugin;
     @Getter
-    private Inventory inventory;
-
-    private static int menuRows;
-
-    private ConfigManager configManager;
+    private final List<Menu> menus = new ArrayList();
+    private final Plugin plugin;
     private BetManager betManager;
 
     private MenuManager(Plugin plugin) {
         this.plugin = plugin;
+        Iterator var2 = Bukkit.getOnlinePlayers().iterator();
 
-        configManager = ConfigManager.getInstance();
+        while(var2.hasNext()) {
+            Player player = (Player)var2.next();
+            this.menus.add(new Menu(player));
+        }
 
-        menuRows = (int) configManager.getSettingsConfig().getValue("menu-rows");
-        loadContent();
-        startUpdating();
-        reopenInventoryForPlayers();
+        var2 = this.menus.iterator();
+
+        while(var2.hasNext()) {
+            Menu menu = (Menu)var2.next();
+            menu.loadContent();
+        }
+
+        this.startUpdating();
+        this.reopenInventoryForPlayers();
     }
 
     public static void init(Plugin plugin) {
         if (instance == null) {
             instance = new MenuManager(plugin);
         }
-    }
 
-    public void loadContent() {
-        try {
-            inventory = Bukkit.createInventory(
-                    null, menuRows * 9,
-                    (String) ConfigManager.getInstance().getMessageConfig().getValue("menu.title"));
-        } catch (IllegalArgumentException exception) {
-            Bukkit.getLogger().severe("Invalid menu row value. Must be between 3 and 6.");
-            Bukkit.getServer().getPluginManager().disablePlugin(plugin);
-            return;
-        }
-
-        fillEmpties();
-    }
-
-    private void fillEmpties() {
-        for (int i = 0; i < menuRows * 9; i++) {
-            ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-            ItemMeta itemMeta = item.getItemMeta();
-
-            itemMeta.setDisplayName("§0");
-            item.setItemMeta(itemMeta);
-
-            inventory.setItem(i, item);
-        }
     }
 
     private void reopenInventoryForPlayers() {
         Inventory loadedInventory = null;
+
         try {
-            loadedInventory = InventoryStateHandler.loadInventoryAndDeleteFile(plugin);
-        } catch (IllegalStateException ignored) {
+            loadedInventory = InventoryStateHandler.loadInventoryAndDeleteFile(this.plugin);
+        } catch (IllegalStateException var7) {
         }
 
-        if (loadedInventory == null) {
-            return;
-        }
+        if (loadedInventory != null) {
+            Set<Player> playersToReopen = new HashSet();
+            Iterator var3 = Bukkit.getOnlinePlayers().iterator();
 
-        Set<Player> playersToReopen = new HashSet<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            Inventory playerInventory = player.getOpenInventory().getTopInventory();
-            if (inventoriesEqual(playerInventory, loadedInventory)) {
-                playersToReopen.add(player);
+            Player player;
+            while(var3.hasNext()) {
+                player = (Player)var3.next();
+                Inventory playerInventory = player.getOpenInventory().getTopInventory();
+                if (this.inventoriesEqual(playerInventory, loadedInventory)) {
+                    playersToReopen.add(player);
+                }
             }
-        }
 
-        for (Player player : playersToReopen) {
-            player.closeInventory();
-            player.openInventory(inventory);
+            var3 = playersToReopen.iterator();
+
+            while(var3.hasNext()) {
+                player = (Player)var3.next();
+                Iterator var8 = this.menus.iterator();
+
+                while(var8.hasNext()) {
+                    Menu menu = (Menu)var8.next();
+                    if (menu.getPlayer().equals(player)) {
+                        player.closeInventory();
+                        player.openInventory(menu.getInventory());
+                    }
+                }
+            }
+
         }
     }
 
     private boolean inventoriesEqual(Inventory inv1, Inventory inv2) {
         if (inv1.getSize() != inv2.getSize()) {
             return false;
-        }
-        for (int i = 0; i < inv1.getSize(); i++) {
-            ItemStack item1 = inv1.getItem(i);
-            ItemStack item2 = inv2.getItem(i);
-            if ((item1 == null && item2 != null) || (item1 != null && !item1.equals(item2))) {
-                return false;
+        } else {
+            for(int i = 0; i < inv1.getSize(); ++i) {
+                ItemStack item1 = inv1.getItem(i);
+                ItemStack item2 = inv2.getItem(i);
+                if (item1 == null && item2 != null || item1 != null && !item1.equals(item2)) {
+                    return false;
+                }
             }
+
+            return true;
         }
-        return true;
     }
 
     public void startUpdating() {
@@ -122,29 +119,15 @@ public class MenuManager {
                 }
 
                 List<ItemStack> targetHeads = new ContentManager(bets).getTargetHeads();
-                fillHeads(targetHeads);
+
+                for (Menu menu : menus) {
+                    menu.fillHeads(targetHeads, bets);
+                }
             }
         };
 
         if (Bukkit.getServer().getPluginManager().isPluginEnabled(plugin)) {
             runnable.runTaskTimer(plugin, 0, 20);
-        }
-    }
-
-    private void fillHeads(List<ItemStack> targetHeads) {
-        try {
-            fillEmpties();
-
-            inventory.setItem(4, targetHeads.get(0));
-            inventory.setItem(12, targetHeads.get(1));
-            inventory.setItem(14, targetHeads.get(2));
-
-            for (int i = 19; i < 26; i++) {
-                inventory.setItem(i, targetHeads.get(i - 19));
-            }
-        } catch (IndexOutOfBoundsException ignore) {
-        } catch (Exception exception) {
-            exception.printStackTrace();
         }
     }
 }
