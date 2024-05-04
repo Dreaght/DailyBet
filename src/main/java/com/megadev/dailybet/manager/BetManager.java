@@ -2,97 +2,80 @@ package com.megadev.dailybet.manager;
 
 import lombok.Getter;
 
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 import com.megadev.dailybet.object.Bet;
 
 import java.util.*;
 
 @Getter
 public class BetManager {
-    private final HashMap<UUID, Bet> bets = new HashMap<>();
-    private int points;
+    private final HashMap<OfflinePlayer, Bet> bets = new HashMap();
+    @Getter
+    private final int points;
 
     public BetManager(int points) {
         this.points = points;
     }
 
-    public void addBet(Player player, int amount) {
-        addBet(player.getUniqueId(), amount);
+    public void addBet(OfflinePlayer player, int amount) {
+        if (!this.bets.containsKey(player)) {
+            this.bets.put(player, new Bet(player, amount));
+        } else {
+            ((Bet)this.bets.get(player)).addCash(amount);
+        }
+
     }
 
-    public void addBet(UUID uuid, int amount) {
-        if (!bets.containsKey(uuid))
-            bets.put(uuid, new Bet(uuid, amount));
-        else
-            bets.get(uuid).addCash(amount);
+    public boolean isPresent(OfflinePlayer player) {
+        return this.bets.containsKey(player);
     }
 
-    public boolean isPresent(Player user) {
-        return bets.containsKey(user);
+    public double getInvestedCash(OfflinePlayer player) {
+        return ((Bet)this.bets.get(player)).getCash();
     }
 
-    public double getInvestedCash(Player user) {
-        return bets.get(user.getUniqueId()).getCash();
-    }
-
-    public double getUserAward(Player user) {
-        return calcPercent(user) * points;
+    public double getUserAward(OfflinePlayer player) {
+        return this.calcPercent(player) * (double)this.points;
     }
 
     public double getUserAward(Bet bet, Set<Bet> bets) {
-        return calcPercent(bet, bets) * points;
-    }
-    
-    public double calcPercent(Player user) {
-        return calcPercent(user.getUniqueId());
+        return this.calcPercent(bet, bets) * (double)this.points;
     }
 
-    public double calcPercent(UUID uuid) {
-        return bets.get(uuid).getCash() / getTotalCash();
+    public double calcPercent(OfflinePlayer player) {
+        return ((Bet)this.bets.get(player)).getCash() / this.getTotalCash();
     }
 
     public double calcPercent(Bet bet, Set<Bet> bets) {
-        return bet.getCash() / getTotalCash(bets);
-    }
-
-    public double calcPercent() {
-        return Math.random();
+        return bet.getCash() / this.getTotalCash(bets);
     }
 
     public double getTotalCash(Set<Bet> bets) {
-        double cash = 0;
+        double cash = 0.0;
 
-        for (Bet bet : bets)
-            cash += bet.getCash();
+        Bet bet;
+        for(Iterator var4 = bets.iterator(); var4.hasNext(); cash += bet.getCash()) {
+            bet = (Bet)var4.next();
+        }
 
         return cash;
     }
 
     public double getTotalCash() {
-        double cash = 0;
-        for (UUID uuid : bets.keySet())
-            cash += bets.get(uuid).getCash();
+        double cash = 0.0;
+
+        OfflinePlayer player;
+        for(Iterator var3 = this.bets.keySet().iterator(); var3.hasNext(); cash += ((Bet)this.bets.get(player)).getCash()) {
+            player = (OfflinePlayer)var3.next();
+        }
 
         return cash;
     }
 
     public Set<Bet> getBets() {
-        Set<Bet> descendingBets = new TreeSet<>(Comparator.reverseOrder());
-
-        descendingBets.addAll(bets.values());
-
+        Set<Bet> descendingBets = new TreeSet(Comparator.reverseOrder());
+        descendingBets.addAll(this.bets.values());
         return descendingBets;
     }
 
-    public Set<Bet> getBetsWithFakes() {
-        Set<Bet> descendingBets = new TreeSet<>(Comparator.reverseOrder());
-
-        descendingBets.addAll(bets.values());
-
-        for (int i = 0; i < 15 - descendingBets.size(); i++) {
-            descendingBets.add(new Bet((int) (Math.random() * 1000)));
-        }
-
-        return descendingBets;
-    }
 }

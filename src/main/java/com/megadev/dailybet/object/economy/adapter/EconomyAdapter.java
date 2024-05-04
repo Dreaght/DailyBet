@@ -1,13 +1,14 @@
 package com.megadev.dailybet.object.economy.adapter;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public interface EconomyAdapter {
-    boolean add(Player player, double amount);
+    boolean add(OfflinePlayer var1, double var2);
 
-    boolean subtract(Player player, double amount);
+    boolean subtract(OfflinePlayer var1, double var2);
 
-    double getBalance(Player player);
+    double getBalance(OfflinePlayer var1);
 
-    boolean setBalance(Player player, double amount);
+    boolean setBalance(OfflinePlayer var1, double var2);
 }

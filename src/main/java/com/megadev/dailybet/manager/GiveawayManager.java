@@ -9,11 +9,13 @@ import com.megadev.dailybet.util.parse.ParsePlaceholder;
 import lombok.Getter;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import com.megadev.dailybet.object.Bet;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class GiveawayManager {
@@ -33,47 +35,37 @@ public class GiveawayManager {
     public void distribute() {
         MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
-
         String stringPoints = messageConfig.getString("messages.event-finished");
-
-        stringPoints = ParsePlaceholder.parseWithBraces(stringPoints,
-                new String[]{"POINTS"},
-                new Object[]{ betManager.getPoints() });
-
+        stringPoints = ParsePlaceholder.parseWithBraces(stringPoints, new String[]{"POINTS"}, new Object[]{betManager.getPoints()});
         Color.broadcastMessage(stringPoints);
+        Iterator var4 = this.getBets(betManager).iterator();
 
-        for (Bet bet : getBets(betManager)) {
-            handleBet(bet);
+        while(var4.hasNext()) {
+            Bet bet = (Bet)var4.next();
+            this.handleBet(bet);
         }
+
     }
 
     private void handleBet(Bet bet) {
         MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
-
-        Player player = Bukkit.getPlayer(bet.getUuid());
-        if (player == null) {
-            return;
+        OfflinePlayer player = bet.getPlayer();
+        if (player != null) {
+            double award = betManager.getUserAward(player);
+            this.depositPoints(player, award);
+            String stringAward = messageConfig.getString("messages.received");
+            stringAward = ParsePlaceholder.parseWithBraces(stringAward, new String[]{"AWARD"}, new Object[]{(int)award});
+            Color.sendMessage((Player)player, stringAward);
         }
-
-        double award = betManager.getUserAward(player);
-
-        depositPoints(player, award);
-
-        String stringAward = messageConfig.getString("messages.received");
-
-        stringAward = ParsePlaceholder.parseWithBraces(stringAward,
-                new String[]{"AWARD"},
-                new Object[]{ (int) award });
-
-        Color.sendMessage(player, stringAward);
     }
 
-    private void depositPoints(Player player, double points) {
+    private void depositPoints(OfflinePlayer player, double points) {
         EconomyTo.deposit(player, points);
     }
 
     private Set<Bet> getBets(BetManager betManager) {
         return betManager.getBets();
     }
+
 }

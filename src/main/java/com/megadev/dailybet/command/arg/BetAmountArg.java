@@ -20,12 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BetAmountArg extends AbstractCommand {
-    @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        return new ArrayList<>();
+    public BetAmountArg() {
     }
 
-    @Override
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+        return new ArrayList();
+    }
+
     public void commandHandler(Player player, String[] args) {
         MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
         if (!BetTaskManager.getInstance().isRunning()) {
@@ -33,26 +34,19 @@ public class BetAmountArg extends AbstractCommand {
         }
 
         int cash = Integer.parseInt(args[0]);
-
         if (cash < 1) {
             Color.sendMessage(player, messageConfig.getString("messages.command.incorrect-cash"));
-            return;
-        }
-
-        if (EconomyFrom.getBalance(player) < cash) {
+        } else if (EconomyFrom.getBalance(player) < (double)cash) {
             Color.sendMessage(player, messageConfig.getString("messages.command.not-enough-cash"));
-            return;
+        } else {
+            this.handleBet(player, cash);
         }
-
-        handleBet(player, cash);
     }
 
-    @Override
     public void sendUsageMessage(Player player) {
-        sendUsageMessage(player, "<amount>");
+        this.sendUsageMessage(player, "<amount>");
     }
 
-    @Override
     public String getPermission() {
         return "";
     }
@@ -60,27 +54,23 @@ public class BetAmountArg extends AbstractCommand {
     private void handleBet(Player user, int cash) {
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
         MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
-
         if (betManager == null) {
             Color.sendMessage(user, messageConfig.getString("messages.command.not-started"));
-            return;
-        }
-
-        EconomyFrom.withdraw(user, cash);
-        betManager.addBet(user, cash);
-
-        if (betManager.isPresent(user)) {
-            Color.sendMessage(user, messageConfig.getString("messages.command.bet-added"));
         } else {
-            Color.sendMessage(user, messageConfig.getString("messages.command.bet-set"));
+            BetConfig betConfig = ConfigManager.getInstance().getBetConfig();
+            betConfig.setValue(user.getUniqueId().toString(), String.valueOf(cash));
+            EconomyFrom.withdraw(user, cash);
+            betManager.addBet(user, cash);
+            if (betManager.isPresent(user)) {
+                Color.sendMessage(user, messageConfig.getString("messages.command.bet-added"));
+            } else {
+                Color.sendMessage(user, messageConfig.getString("messages.command.bet-set"));
+            }
+
+            String betBalance = messageConfig.getString("messages.command.bet-cash");
+            betBalance = ParsePlaceholder.parseWithBraces(betBalance, new String[]{"BET_BALANCE"}, new Object[]{betManager.getInvestedCash(user)});
+            Color.sendMessage(user, betBalance);
         }
-
-        String betBalance = messageConfig.getString("messages.command.bet-cash");
-
-        betBalance = ParsePlaceholder.parseWithBraces(betBalance,
-                new String[]{"BET_BALANCE"},
-                new Object[]{ betManager.getInvestedCash(user) });
-
-        Color.sendMessage(user, betBalance);
     }
 }
+

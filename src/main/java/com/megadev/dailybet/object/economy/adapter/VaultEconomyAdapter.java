@@ -2,7 +2,9 @@ package com.megadev.dailybet.object.economy.adapter;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public class VaultEconomyAdapter implements EconomyAdapter {
@@ -12,32 +14,25 @@ public class VaultEconomyAdapter implements EconomyAdapter {
         this.economy = economy;
     }
 
-    @Override
-    public boolean add(Player player, double amount) {
-        return economy.depositPlayer(player, amount).type == EconomyResponse.ResponseType.SUCCESS;
+    public boolean add(OfflinePlayer player, double amount) {
+        return this.economy.depositPlayer(player, amount).type == EconomyResponse.ResponseType.SUCCESS;
     }
 
-    @Override
-    public boolean subtract(Player player, double amount) {
-        return economy.withdrawPlayer(player, amount).type == EconomyResponse.ResponseType.SUCCESS;
+    public boolean subtract(OfflinePlayer player, double amount) {
+        return this.economy.withdrawPlayer(player, amount).type == ResponseType.SUCCESS;
     }
 
-    @Override
-    public double getBalance(Player player) {
-        return economy.getBalance(player);
+    public double getBalance(OfflinePlayer player) {
+        return this.economy.getBalance(player);
     }
 
-    @Override
-    public boolean setBalance(Player player, double amount) {
+    public boolean setBalance(OfflinePlayer player, double amount) {
         double currentBalance = this.getBalance(player);
         double diff = Math.abs(amount - currentBalance);
-
         if (amount > currentBalance) {
-            return add(player, diff);
-        }else if (amount < currentBalance) {
-            return subtract(player, diff);
+            return this.add(player, diff);
+        } else {
+            return amount < currentBalance ? this.subtract(player, diff) : true;
         }
-
-        return true;
     }
 }

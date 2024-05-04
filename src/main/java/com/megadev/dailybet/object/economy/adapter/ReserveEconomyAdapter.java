@@ -1,25 +1,25 @@
 package com.megadev.dailybet.object.economy.adapter;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public class ReserveEconomyAdapter implements EconomyAdapter {
-    @Override
-    public boolean add(Player player, double amount) {
+    public ReserveEconomyAdapter() {
+    }
+
+    public boolean add(OfflinePlayer player, double amount) {
         return false;
     }
 
-    @Override
-    public boolean subtract(Player player, double amount) {
+    public boolean subtract(OfflinePlayer player, double amount) {
         return false;
     }
 
-    @Override
-    public double getBalance(Player player) {
-        return 0;
+    public double getBalance(OfflinePlayer player) {
+        return 0.0;
     }
 
-    @Override
-    public boolean setBalance(Player player, double amount) {
+    public boolean setBalance(OfflinePlayer player, double amount) {
         return false;
     }
 }

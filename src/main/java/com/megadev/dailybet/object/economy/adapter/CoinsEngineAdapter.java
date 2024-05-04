@@ -1,30 +1,28 @@
 package com.megadev.dailybet.object.economy.adapter;
 
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 
 public class CoinsEngineAdapter implements EconomyAdapter, Currency {
-    @Override
+    public CoinsEngineAdapter() {
+    }
+
     public String getCurrency() {
         return "";
     }
 
-    @Override
-    public boolean add(Player player, double amount) {
+    public boolean add(OfflinePlayer player, double amount) {
         return false;
     }
 
-    @Override
-    public boolean subtract(Player player, double amount) {
+    public boolean subtract(OfflinePlayer player, double amount) {
         return false;
     }
 
-    @Override
-    public double getBalance(Player player) {
-        return 0;
+    public double getBalance(OfflinePlayer player) {
+        return 0.0;
     }
 
-    @Override
-    public boolean setBalance(Player player, double amount) {
+    public boolean setBalance(OfflinePlayer player, double amount) {
         return false;
     }
 }
