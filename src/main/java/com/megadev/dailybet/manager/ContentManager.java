@@ -25,8 +25,8 @@ public class ContentManager {
     }
 
     public List<ItemStack> getTargetHeads() {
-        List<ItemStack> targetHeads = new ArrayList();
-        Iterator var2 = this.bets.iterator();
+
+        List<ItemStack> targetHeads = new ArrayList<>();
 
         while(var2.hasNext()) {
             Bet bet = (Bet)var2.next();

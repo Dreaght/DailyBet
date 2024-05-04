@@ -9,6 +9,7 @@ com\megadev\dailybet\command\arg\StopArg.class
 com\megadev\dailybet\manager\GiveawayManager.class
 com\megadev\dailybet\event\BetAwardCalculationEvent.class
 com\megadev\dailybet\manager\MenuManager$1.class
+com\megadev\dailybet\object\menu\Menu.class
 com\megadev\dailybet\event\PreBetAddEvent.class
 com\megadev\dailybet\event\PreBetStartEvent.class
 com\megadev\dailybet\manager\BetManager.class
@@ -35,6 +36,7 @@ com\megadev\dailybet\task\BetDailyTimer.class
 com\megadev\dailybet\event\BetPercentCalculationEvent.class
 com\megadev\dailybet\object\economy\EconomyTo.class
 com\megadev\dailybet\event\PreBetStopEvent.class
+com\megadev\dailybet\config\BetConfig.class
 com\megadev\dailybet\listener\MenuListener.class
 com\megadev\dailybet\event\BetAddEvent.class
 com\megadev\dailybet\event\CancellableBetEvent.class
