@@ -2,6 +2,7 @@ package com.megadev.dailybet.command.arg;
 
 import com.megadev.dailybet.command.AbstractCommand;
 import com.megadev.dailybet.config.ConfigManager;
+import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.manager.BetTaskManager;
 import com.megadev.dailybet.util.chat.Color;
 import org.bukkit.command.Command;
@@ -30,10 +31,14 @@ public class StopArg extends AbstractCommand {
 
     @Override
     public void commandHandler(Player player, String[] args) {
+
+        MessageConfig messageConfig = ConfigManager.getInstance().getConfig(MessageConfig.class);
+
         if (!hasRights(player)) {
-            Color.sendMessage(player, ConfigManager.getInstance().getMessageConfig().getString("messages.command.not-permission"));
+            Color.sendMessage(player, messageConfig.getString("messages.command.not-permission"));
             return;
         }
+
         if (BetTaskManager.getInstance().isRunning()) {
             Color.sendMessage(player, messageConfig.getString("messages.command.event-stopped"));
             BetTaskManager.getInstance().removeBetProcess();

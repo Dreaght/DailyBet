@@ -7,8 +7,6 @@ import lombok.Getter;
 
 import org.bukkit.plugin.Plugin;
 
-import java.util.HashMap;
-
 public class ConfigManager extends Manager {
     @Getter
     private static ConfigManager instance;

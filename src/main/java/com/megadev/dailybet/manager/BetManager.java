@@ -21,7 +21,7 @@ public class BetManager {
         if (!this.bets.containsKey(player)) {
             this.bets.put(player, new Bet(player, amount));
         } else {
-            ((Bet)this.bets.get(player)).addCash(amount);
+            (this.bets.get(player)).addCash(amount);
         }
 
     }

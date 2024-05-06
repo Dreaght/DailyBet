@@ -9,7 +9,6 @@ import com.megadev.dailybet.object.menu.Head;
 import com.megadev.dailybet.util.parse.ParsePlaceholder;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -28,9 +27,8 @@ public class ContentManager {
 
         List<ItemStack> targetHeads = new ArrayList<>();
 
-        while(var2.hasNext()) {
-            Bet bet = (Bet)var2.next();
-            this.fillHeadContent(bet, targetHeads, bet.getPlayer());
+        for (Bet bet : bets) {
+            fillHeadContent(bet, targetHeads, bet.getPlayer());
         }
 
         return targetHeads;

@@ -1,5 +1,6 @@
 package com.megadev.dailybet.manager;
 
+import com.megadev.dailybet.config.SettingsConfig;
 import lombok.Getter;
 
 import org.bukkit.plugin.Plugin;
@@ -31,10 +32,10 @@ public class BetTaskManager {
 
     public void startBetProcess(int points, Date date) {
         this.betManager = new BetManager(points);
-        ConfigManager configManager = ConfigManager.getInstance();
+        SettingsConfig settingsConfig = ConfigManager.getInstance().getConfig(SettingsConfig.class);
 
-        String periodStr = (String) configManager.getSettingsConfig().getValue("interval");
-        String timeZoneStr = (String) configManager.getSettingsConfig().getValue("time-zone");
+        String periodStr = settingsConfig.getString("interval");
+        String timeZoneStr = settingsConfig.getString("time-zone");
 
         date = ParseData.getTimezonedDate(date, timeZoneStr);
 

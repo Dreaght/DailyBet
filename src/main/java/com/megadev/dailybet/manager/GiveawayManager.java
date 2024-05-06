@@ -8,15 +8,12 @@ import com.megadev.dailybet.util.parse.ParsePlaceholder;
 
 import lombok.Getter;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import com.megadev.dailybet.object.Bet;
 
-import java.util.Iterator;
-import java.util.Set;
 
 public class GiveawayManager {
     @Getter
@@ -33,22 +30,19 @@ public class GiveawayManager {
     }
 
     public void distribute() {
-        MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
+        MessageConfig messageConfig = ConfigManager.getInstance().getConfig(MessageConfig.class);
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
         String stringPoints = messageConfig.getString("messages.event-finished");
         stringPoints = ParsePlaceholder.parseWithBraces(stringPoints, new String[]{"POINTS"}, new Object[]{betManager.getPoints()});
         Color.broadcastMessage(stringPoints);
-        Iterator var4 = this.getBets(betManager).iterator();
 
-        while(var4.hasNext()) {
-            Bet bet = (Bet)var4.next();
-            this.handleBet(bet);
+        for (Bet bet : betManager.getBets()) {
+            handleBet(bet);
         }
-
     }
 
     private void handleBet(Bet bet) {
-        MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
+        MessageConfig messageConfig = ConfigManager.getInstance().getConfig(MessageConfig.class);
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
         OfflinePlayer player = bet.getPlayer();
         if (player != null) {
@@ -62,10 +56,6 @@ public class GiveawayManager {
 
     private void depositPoints(OfflinePlayer player, double points) {
         EconomyTo.deposit(player, points);
-    }
-
-    private Set<Bet> getBets(BetManager betManager) {
-        return betManager.getBets();
     }
 
 }
