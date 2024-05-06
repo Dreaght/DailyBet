@@ -3,10 +3,10 @@ package com.megadev.dailybet.command.arg;
 import com.megadev.dailybet.command.AbstractCommand;
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
+import com.megadev.dailybet.config.cache.BetConfig;
 import com.megadev.dailybet.manager.BetManager;
 import com.megadev.dailybet.manager.BetTaskManager;
 import com.megadev.dailybet.object.economy.EconomyFrom;
-import com.megadev.dailybet.object.economy.EconomyTo;
 import com.megadev.dailybet.util.chat.Color;
 import com.megadev.dailybet.util.parse.ParsePlaceholder;
 
@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BetAmountArg extends AbstractCommand {
+    MessageConfig messageConfig = ConfigManager.getInstance().getConfig(MessageConfig.class);
+
     public BetAmountArg() {
     }
 
@@ -28,7 +30,7 @@ public class BetAmountArg extends AbstractCommand {
     }
 
     public void commandHandler(Player player, String[] args) {
-        MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
+
         if (!BetTaskManager.getInstance().isRunning()) {
             Color.sendMessage(player, messageConfig.getString("messages.command.already-running"));
         }
@@ -53,11 +55,10 @@ public class BetAmountArg extends AbstractCommand {
 
     private void handleBet(Player user, int cash) {
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
-        MessageConfig messageConfig = ConfigManager.getInstance().getMessageConfig();
         if (betManager == null) {
             Color.sendMessage(user, messageConfig.getString("messages.command.not-started"));
         } else {
-            BetConfig betConfig = ConfigManager.getInstance().getBetConfig();
+            BetConfig betConfig = ConfigManager.getInstance().getConfig(BetConfig.class);
             betConfig.setValue(user.getUniqueId().toString(), String.valueOf(cash));
             EconomyFrom.withdraw(user, cash);
             betManager.addBet(user, cash);

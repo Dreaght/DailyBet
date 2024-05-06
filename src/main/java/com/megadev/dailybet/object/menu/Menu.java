@@ -2,6 +2,8 @@ package com.megadev.dailybet.object.menu;
 
 import com.megadev.dailybet.DailyBet;
 import com.megadev.dailybet.config.ConfigManager;
+import com.megadev.dailybet.config.MessageConfig;
+import com.megadev.dailybet.config.SettingsConfig;
 import com.megadev.dailybet.object.Bet;
 import java.util.Iterator;
 import java.util.List;
@@ -21,12 +23,13 @@ public class Menu {
     public Menu(Player player) {
         this.player = player;
         ConfigManager configManager = ConfigManager.getInstance();
-        menuRows = (Integer)configManager.getSettingsConfig().getValue("menu-rows");
+        menuRows = (Integer)configManager.getConfig(SettingsConfig.class).getValue("menu-rows");
     }
 
     public void loadContent() {
         try {
-            this.inventory = Bukkit.createInventory(this.player, menuRows * 9, (String)ConfigManager.getInstance().getMessageConfig().getValue("menu.title"));
+            this.inventory = Bukkit.createInventory(this.player, menuRows * 9,
+                    (String)ConfigManager.getInstance().getConfig(MessageConfig.class).getValue("menu.title"));
         } catch (IllegalArgumentException var2) {
             Bukkit.getLogger().severe("Invalid menu row value. Must be between 3 and 6.");
             Bukkit.getServer().getPluginManager().disablePlugin(DailyBet.getInstance());

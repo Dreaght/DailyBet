@@ -21,7 +21,7 @@ public class EconomyHandler {
     @Getter private static EconomyAdapter economyTo;
 
     public static void installEconomies() {
-        SettingsConfig config = ConfigManager.getInstance().getSettingsConfig();
+        SettingsConfig config = ConfigManager.getInstance().getConfig(SettingsConfig.class);
 
         installEconomyFrom(config.getString("economy-from"));
         installEconomyTo(config.getString("economy-to"));

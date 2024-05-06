@@ -20,7 +20,7 @@ public class ContentManager {
 
     public ContentManager(Set<Bet> bets) {
         this.bets = bets;
-        this.messageConfig = ConfigManager.getInstance().getMessageConfig();
+        this.messageConfig = ConfigManager.getInstance().getConfig(MessageConfig.class);
         this.betManager = BetTaskManager.getInstance().getBetManager();
     }
 

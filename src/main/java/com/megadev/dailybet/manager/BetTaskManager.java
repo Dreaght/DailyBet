@@ -42,11 +42,6 @@ public class BetTaskManager {
 
         Date finalDate = new Date(date.getTime() + period);
 
-        System.out.println(date);
-        System.out.println(finalDate);
-
-        System.out.println(ParseData.difference(date, finalDate));
-
         betDailyTimer = new BetDailyTimer(plugin);
         betDailyTimer.runTaskTimer(plugin, ParseData.difference(date, finalDate) / 50, period / 50);
     }

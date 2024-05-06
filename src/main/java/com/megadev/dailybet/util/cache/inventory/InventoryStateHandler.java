@@ -1,5 +1,6 @@
-package com.megadev.dailybet.util.inventory;
+package com.megadev.dailybet.util.cache.inventory;
 
+import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.util.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
@@ -55,7 +56,7 @@ public class InventoryStateHandler {
         int size = items.length;
 
         Inventory inventory = Bukkit.createInventory(
-                null, size, ConfigManager.getInstance().getMessageConfig().getString("messages.menu.title"));
+                null, size, ConfigManager.getInstance().getConfig(MessageConfig.class).getString("messages.menu.title"));
         inventory.setContents(items);
         return inventory;
     }

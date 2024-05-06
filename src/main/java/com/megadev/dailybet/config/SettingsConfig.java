@@ -1,20 +1,12 @@
 package com.megadev.dailybet.config;
 
+import dev.mega.megacore.config.Configurable;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class SettingsConfig extends Configurable {
     protected SettingsConfig(@NotNull Plugin plugin, String fileName) {
-        super(plugin, fileName, createDefaults());
+        super(plugin, fileName);
     }
 
-    private static Map<String, Object> createDefaults() {
-        Map<String, Object> defaults = new HashMap<>();
-        defaults.put("time-zone", "GMT+3");
-        defaults.put("interval", "24h");
-        return defaults;
-    }
 }

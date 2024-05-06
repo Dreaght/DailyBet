@@ -1,5 +1,6 @@
 package com.megadev.dailybet.listener;
 
+import com.megadev.dailybet.config.MessageConfig;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -10,7 +11,7 @@ public class MenuListener implements Listener {
     public void onMenuClick(InventoryClickEvent event) {
         ConfigManager configManager = ConfigManager.getInstance();
 
-        if (!(event.getView().getTitle().equalsIgnoreCase(configManager.getMessageConfig().getString("menu.title")))) {
+        if (!(event.getView().getTitle().equalsIgnoreCase(configManager.getConfig(MessageConfig.class).getString("menu.title")))) {
             return;
         }
 

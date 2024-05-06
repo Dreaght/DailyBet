@@ -1,4 +1,4 @@
-package com.megadev.dailybet.util.inventory;
+package com.megadev.dailybet.util.cache.inventory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;

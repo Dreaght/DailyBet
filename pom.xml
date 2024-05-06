@@ -117,6 +117,20 @@
             <systemPath>${project.basedir}/lib/MultiEconomy-1.0.7-BETA.jar</systemPath>
         </dependency>
         <dependency>
+            <groupId>me.glaremasters</groupId>
+            <artifactId>MultiEconomy</artifactId>
+            <version>1.0.7-BETA</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/MultiEconomy-1.0.7-BETA.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>dev.mega</groupId>
+            <artifactId>megacore</artifactId>
+            <version>1.0-beta</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/megacore-1.0-beta.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>net.essentialsx</groupId>
             <artifactId>EssentialsX</artifactId>
             <version>2.21.0-SNAPSHOT</version>
@@ -133,6 +147,18 @@
             <artifactId>annotations</artifactId>
             <version>24.1.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
