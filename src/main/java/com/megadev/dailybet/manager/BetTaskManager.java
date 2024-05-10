@@ -19,8 +19,9 @@ public class BetTaskManager {
     private final Plugin plugin;
     @Getter
     private BetManager betManager;
-    @Getter
     private BetDailyTimer betDailyTimer;
+    @Getter
+    private Date giveawayDate;
 
     private BetTaskManager(Plugin plugin) {
         this.plugin = plugin;

@@ -76,7 +76,7 @@ public class StartArg extends AbstractCommand {
 
     @Override
     public void sendUsageMessage(Player player) {
-        sendUsageMessage(player, "start <points> (optional: <hh:mm>) (optional: <dd.MM.yyyy>)");
+        sendUsageMessage(player, "start <points> (optional: <hh:mm:ss>) (optional: <dd.MM.yyyy>)");
     }
 
     @Override
