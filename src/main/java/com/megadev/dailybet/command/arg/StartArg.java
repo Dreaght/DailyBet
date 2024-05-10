@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import com.megadev.dailybet.util.parse.ParseData;
+import com.megadev.dailybet.util.parse.ParseDate;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class StartArg extends AbstractCommand {
                 return;
             }
 
-            Date date = ParseData.getDateTimeFromString(Arrays.copyOfRange(args, 2, args.length));
+            Date date = ParseDate.getDateTimeFromString(Arrays.copyOfRange(args, 2, args.length));
             BetTaskManager.getInstance().startBetProcess(Integer.parseInt(args[1]), date);
             Color.sendMessage(player, messageConfig.getString("messages.command.event-started"));
         } catch (ParseException e) {

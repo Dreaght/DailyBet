@@ -33,14 +33,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <outputDirectory>C:\Users\nikit\Desktop\MegaDevTests\plugins</outputDirectory>
-          <finalName>DailyBet</finalName>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -142,6 +134,46 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.0.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>apiguardian-api</artifactId>
+          <groupId>org.apiguardian</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-platform-engine</artifactId>
+          <groupId>org.junit.platform</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter-api</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.11.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>byte-buddy</artifactId>
+          <groupId>net.bytebuddy</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>byte-buddy-agent</artifactId>
+          <groupId>net.bytebuddy</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>objenesis</artifactId>
+          <groupId>org.objenesis</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>su.nightexpress.coinsengine</groupId>
       <artifactId>CoinsEngine</artifactId>
       <version>2.3.3</version>
@@ -161,6 +193,20 @@
       <version>1.0.7-BETA</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/lib/MultiEconomy-1.0.7-BETA.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>me.glaremasters</groupId>
+      <artifactId>MultiEconomy</artifactId>
+      <version>1.0.7-BETA</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/MultiEconomy-1.0.7-BETA.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>dev.mega</groupId>
+      <artifactId>megacore</artifactId>
+      <version>1.0-beta</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/megacore-1.0-beta.jar</systemPath>
     </dependency>
   </dependencies>
   <properties>

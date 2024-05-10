@@ -34,15 +34,19 @@ public class BetAmountArg extends AbstractCommand {
         if (!BetTaskManager.getInstance().isRunning()) {
             Color.sendMessage(player, messageConfig.getString("messages.command.already-running"));
         }
+        try {
+            int cash = Integer.parseInt(args[0]);
+            if (cash < 1) {
+                Color.sendMessage(player, messageConfig.getString("messages.command.incorrect-cash"));
+            } else if (EconomyFrom.getBalance(player) < (double)cash) {
+                Color.sendMessage(player, messageConfig.getString("messages.command.not-enough-cash"));
+            } else {
+                this.handleBet(player, cash);
+            }
 
-        int cash = Integer.parseInt(args[0]);
-        if (cash < 1) {
-            Color.sendMessage(player, messageConfig.getString("messages.command.incorrect-cash"));
-        } else if (EconomyFrom.getBalance(player) < (double)cash) {
-            Color.sendMessage(player, messageConfig.getString("messages.command.not-enough-cash"));
-        } else {
-            this.handleBet(player, cash);
+        } catch (NumberFormatException ignore) {
         }
+
     }
 
     public void sendUsageMessage(Player player) {

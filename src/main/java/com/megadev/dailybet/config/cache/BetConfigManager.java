@@ -8,7 +8,7 @@ public class BetConfigManager extends Manager {
     public BetConfigManager(Plugin plugin, String dataFolder) {
         super(plugin, dataFolder);
 
-        addConfig(BetConfig.class, new BetConfig(plugin, "bets"));
+        addConfig(BetConfig.class, new BetConfig(plugin, getDataFolder(), "bets"));
     }
 
 }

@@ -41,22 +41,27 @@ public class InventoryStateHandler {
             if (cacheFolder.isDirectory() && cacheFolder.list().length == 0) {
                 cacheFolder.delete();
             }
-            return createInventory(contents);
+            return getInventory(contents);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private static Inventory createInventory(ItemStack[] items) {
+    private static Inventory getInventory(ItemStack[] items) {
         if (items == null || items.length == 0) {
             return null;
         }
 
         int size = items.length;
 
+        String title = ConfigManager.getInstance().getConfig(MessageConfig.class).getString("messages.menu.title");
+        if (title == null) {
+            return null;
+        }
+
         Inventory inventory = Bukkit.createInventory(
-                null, size, ConfigManager.getInstance().getConfig(MessageConfig.class).getString("messages.menu.title"));
+                null, size, title);
         inventory.setContents(items);
         return inventory;
     }

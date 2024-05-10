@@ -7,7 +7,7 @@ import org.bukkit.plugin.Plugin;
 
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.task.BetDailyTimer;
-import com.megadev.dailybet.util.parse.ParseData;
+import com.megadev.dailybet.util.parse.ParseDate;
 import com.megadev.dailybet.util.parse.ParsePeriod;
 
 import java.util.Date;
@@ -31,20 +31,31 @@ public class BetTaskManager {
     }
 
     public void startBetProcess(int points, Date date) {
-        this.betManager = new BetManager(points);
         SettingsConfig settingsConfig = ConfigManager.getInstance().getConfig(SettingsConfig.class);
+
+        if (settingsConfig == null) {
+            return;
+        }
 
         String periodStr = settingsConfig.getString("interval");
         String timeZoneStr = settingsConfig.getString("time-zone");
 
-        date = ParseData.getTimezonedDate(date, timeZoneStr);
+        startBetProcess(points, date, periodStr, timeZoneStr);
+    }
 
-        long period = ParsePeriod.getPeriodFromString(periodStr);
+    public void startBetProcess(int points, Date date, String interval, String timeZone) {
+        this.betManager = new BetManager(points);
+
+        date = ParseDate.getTimezonedDate(date, timeZone);
+
+        long period = ParsePeriod.getPeriodFromString(interval);
 
         Date finalDate = new Date(date.getTime() + period);
 
+        this.giveawayDate = finalDate;
+
         betDailyTimer = new BetDailyTimer(plugin);
-        betDailyTimer.runTaskTimer(plugin, ParseData.difference(date, finalDate) / 50, period / 50);
+        betDailyTimer.runTaskTimer(plugin, ParseDate.difference(date, finalDate) / 50, period / 50);
     }
 
     public void safeDeleteBetProcess() {

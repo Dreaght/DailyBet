@@ -1,6 +1,7 @@
 package com.megadev.dailybet;
 
 import com.megadev.dailybet.config.cache.BetConfig;
+import com.megadev.dailybet.listener.JoinListener;
 import com.megadev.dailybet.object.Bet;
 import com.megadev.dailybet.object.economy.EconomyHandler;
 import com.megadev.dailybet.object.menu.Menu;
@@ -27,11 +28,16 @@ public final class DailyBet extends MegaCore {
     @Override
     public void enable() {
         instance = this;
+
         ConfigManager.init(this);
         BetTaskManager.init(this);
         GiveawayManager.init(this);
         MenuManager.init(this);
+
+        MenuManager.getInstance().loadAllPlayerMenus();
+
         this.getServer().getPluginManager().registerEvents(new MenuListener(), this);
+        this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
         Objects.requireNonNull(this.getCommand("bet")).setExecutor(new BetCommand());
         EconomyHandler.installEconomies();
     }

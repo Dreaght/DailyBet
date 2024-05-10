@@ -25,22 +25,20 @@ public class MenuManager {
 
     private MenuManager(Plugin plugin) {
         this.plugin = plugin;
-        Iterator var2 = Bukkit.getOnlinePlayers().iterator();
-
-        while(var2.hasNext()) {
-            Player player = (Player)var2.next();
-            this.menus.add(new Menu(player));
-        }
-
-        var2 = this.menus.iterator();
-
-        while(var2.hasNext()) {
-            Menu menu = (Menu)var2.next();
-            menu.loadContent();
-        }
 
         this.startUpdating();
         this.reopenInventoryForPlayers();
+    }
+
+    public void loadAllPlayerMenus() {
+        Bukkit.getServer().getOnlinePlayers().forEach(this::loadPlayerMenus);
+    }
+
+    public void loadPlayerMenus(Player player) {
+        Menu menu = new Menu(player);
+        this.menus.add(menu);
+
+        menu.loadContent();
     }
 
     public static void init(Plugin plugin) {

@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-public class BetConfig extends Configurable {
+public class BetConfig extends Configurable implements Deletable {
     protected BetConfig(@NotNull Plugin plugin, String... path) {
         super(plugin, path);
     }
@@ -20,7 +20,7 @@ public class BetConfig extends Configurable {
     }
 
     public void setCash(UUID uuid, double cash) {
-        setValue(uuid.toString(), cash);
+        setValue(uuid.toString(), String.valueOf(cash));
     }
     
     public int getPoints() {
@@ -28,7 +28,7 @@ public class BetConfig extends Configurable {
     }
     
     public void setPoints(double points) {
-        setValue("points", points);
+        setValue("points", String.valueOf(points));
     }
     
     public Date getDate() throws ParseException {
@@ -41,6 +41,7 @@ public class BetConfig extends Configurable {
         setValue("date", timeDateFormat.format(date));
     }
 
+    @Override
     public void delete() {
         deleteConfig();
     }

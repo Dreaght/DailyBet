@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class ParseData {
+public class ParseDate {
     public static Date getDateTimeFromString(String[] args) throws ParseException {
         Date date;
         switch (args.length) {
