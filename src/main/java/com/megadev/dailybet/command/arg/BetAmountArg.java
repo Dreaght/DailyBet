@@ -3,7 +3,7 @@ package com.megadev.dailybet.command.arg;
 import com.megadev.dailybet.command.AbstractCommand;
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
-import com.megadev.dailybet.config.cache.BetConfig;
+import com.megadev.dailybet.config.BetConfig;
 import com.megadev.dailybet.manager.BetManager;
 import com.megadev.dailybet.manager.BetTaskManager;
 import com.megadev.dailybet.object.economy.EconomyFrom;
@@ -62,8 +62,6 @@ public class BetAmountArg extends AbstractCommand {
         if (betManager == null) {
             Color.sendMessage(user, messageConfig.getString("messages.command.not-started"));
         } else {
-            BetConfig betConfig = ConfigManager.getInstance().getConfig(BetConfig.class);
-            betConfig.setValue(user.getUniqueId().toString(), String.valueOf(cash));
             EconomyFrom.withdraw(user, cash);
             betManager.addBet(user, cash);
             if (betManager.isPresent(user)) {

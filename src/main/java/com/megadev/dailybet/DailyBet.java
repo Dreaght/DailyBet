@@ -1,7 +1,8 @@
 package com.megadev.dailybet;
 
-import com.megadev.dailybet.config.cache.BetConfig;
+import com.megadev.dailybet.config.BetConfig;
 import com.megadev.dailybet.listener.JoinListener;
+import com.megadev.dailybet.manager.BetManager;
 import com.megadev.dailybet.object.Bet;
 import com.megadev.dailybet.object.economy.EconomyHandler;
 import com.megadev.dailybet.object.menu.Menu;
@@ -19,6 +20,8 @@ import lombok.Getter;
 
 import org.bukkit.Bukkit;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Objects;
 
 public final class DailyBet extends MegaCore {
@@ -40,23 +43,43 @@ public final class DailyBet extends MegaCore {
         this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
         Objects.requireNonNull(this.getCommand("bet")).setExecutor(new BetCommand());
         EconomyHandler.installEconomies();
+
+        try {
+            BetTaskManager.getInstance().installBets();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void disable() {
+        saveBets();
+        saveInventory();
+    }
+
+    private void saveBets() {
+        if (!BetTaskManager.getInstance().isRunning()) {
+            return;
+        }
+
+        BetConfig betConfig = ConfigManager.getInstance().getConfig(BetConfig.class);
+        BetManager betManager = BetTaskManager.getInstance().getBetManager();
+
+        Date date = BetTaskManager.getInstance().getGiveawayDate();
+
+        betConfig.setDate(date);
+        betConfig.setPoints(betManager.getPoints());
+
+        for (Bet bet : betManager.getBets())
+            betConfig.setCash(bet.getPlayer().getUniqueId(), bet.getCash());
+    }
+
+    private void saveInventory() {
         try {
-            BetConfig betConfig = ConfigManager.getInstance().getConfig(BetConfig.class);
-
-            for (Bet bet : BetTaskManager.getInstance().getBetManager().getBets())
-                betConfig.setCash(bet.getPlayer().getUniqueId(), bet.getCash());
-
-            betConfig.delete();
-            for (Menu menu : MenuManager.getInstance().getMenus()) {
+            for (Menu menu : MenuManager.getInstance().getMenus())
                 InventoryStateHandler.saveInventory(menu.getInventory(), this);
-            }
         } catch (NullPointerException var3) {
             Bukkit.getLogger().warning("Tried to save an inventory, but it does not exist yet!");
         }
     }
-
 }

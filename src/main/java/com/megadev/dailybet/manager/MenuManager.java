@@ -58,7 +58,7 @@ public class MenuManager {
 
         if (loadedInventory != null) {
             Set<Player> playersToReopen = new HashSet();
-            Iterator var3 = Bukkit.getOnlinePlayers().iterator();
+            Iterator var3 = Arrays.stream(Bukkit.getOfflinePlayers()).iterator();
 
             Player player;
             while(var3.hasNext()) {

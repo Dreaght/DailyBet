@@ -5,9 +5,11 @@ import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.config.SettingsConfig;
 import com.megadev.dailybet.object.Bet;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Set;
+
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,6 +17,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+
+@Getter
 public class Menu {
     private Inventory inventory;
     private final Player player;
@@ -54,7 +58,8 @@ public class Menu {
             for(int i = 19; i < 26; ++i) {
                 this.inventory.setItem(i, (ItemStack)targetHeads.get(i - 19));
             }
-        } catch (IndexOutOfBoundsException var5) {
+
+        } catch (IndexOutOfBoundsException ignore ) {
         } catch (Exception var6) {
             Exception exception = var6;
             exception.printStackTrace();
@@ -86,11 +91,4 @@ public class Menu {
 
     }
 
-    public Inventory getInventory() {
-        return this.inventory;
-    }
-
-    public Player getPlayer() {
-        return this.player;
-    }
 }

@@ -34,7 +34,7 @@ public class ContentManager {
         return targetHeads;
     }
 
-    private void fillHeadContent(Bet bet, List<ItemStack> targetHeads, OfflinePlayer player) {
+    public void fillHeadContent(Bet bet, List<MenuItem> targetHeads, OfflinePlayer player) {
         Head head = new Head(player);
         this.setTitle(head, bet);
         this.setLore(head, bet);

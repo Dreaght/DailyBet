@@ -26,6 +26,10 @@ public class BetManager {
 
     }
 
+    public void addBet(Bet bet) {
+        bets.put(bet.getPlayer(), bet);
+    }
+
     public boolean isPresent(OfflinePlayer player) {
         return this.bets.containsKey(player);
     }
