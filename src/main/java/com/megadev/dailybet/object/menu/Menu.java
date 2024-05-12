@@ -43,20 +43,23 @@ public class Menu {
         this.fillEmpties();
     }
 
-    public void fillHeads(List<ItemStack> targetHeads, Set<Bet> bets) {
+    public void fillHeads(List<MenuItem> targetHeads) {
         try {
             this.fillEmpties();
-            int indexCurrentPlayer = this.getCurrentPlayerHeadIndex(bets);
-            if (indexCurrentPlayer >= -1) {
-                this.inventory.setItem(8, (ItemStack)targetHeads.get(indexCurrentPlayer));
+
+            for (MenuItem targetHead : targetHeads) {
+                if (targetHead.player().equals(player)) {
+
+                    this.inventory.setItem(8, targetHead.itemStack());
+                }
             }
 
-            this.inventory.setItem(4, (ItemStack)targetHeads.get(0));
-            this.inventory.setItem(12, (ItemStack)targetHeads.get(1));
-            this.inventory.setItem(14, (ItemStack)targetHeads.get(2));
+            this.inventory.setItem(4, targetHeads.get(0).itemStack());
+            this.inventory.setItem(12, targetHeads.get(1).itemStack());
+            this.inventory.setItem(14, targetHeads.get(2).itemStack());
 
-            for(int i = 19; i < 26; ++i) {
-                this.inventory.setItem(i, (ItemStack)targetHeads.get(i - 19));
+            for (int i = 19; i < 26; ++i) {
+                this.inventory.setItem(i, targetHeads.get(i - 19).itemStack());
             }
 
         } catch (IndexOutOfBoundsException ignore ) {
@@ -67,24 +70,11 @@ public class Menu {
 
     }
 
-    private int getCurrentPlayerHeadIndex(Set<Bet> bets) {
-        int index = 0;
-
-        for(Iterator var3 = bets.iterator(); var3.hasNext(); ++index) {
-            Bet bet = (Bet)var3.next();
-            if (bet.getPlayer().equals(this.player)) {
-                return index;
-            }
-        }
-
-        return -1;
-    }
-
     private void fillEmpties() {
         for(int i = 0; i < menuRows * 9; ++i) {
             ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
             ItemMeta itemMeta = item.getItemMeta();
-            itemMeta.setDisplayName("ยง0");
+            itemMeta.setDisplayName("§0");
             item.setItemMeta(itemMeta);
             this.inventory.setItem(i, item);
         }

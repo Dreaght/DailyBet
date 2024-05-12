@@ -1,5 +1,7 @@
 package com.megadev.dailybet.manager;
 
+import com.megadev.dailybet.object.menu.Menu;
+import com.megadev.dailybet.object.menu.MenuItem;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import com.megadev.dailybet.config.ConfigManager;
@@ -23,9 +25,9 @@ public class ContentManager {
         this.betManager = BetTaskManager.getInstance().getBetManager();
     }
 
-    public List<ItemStack> getTargetHeads() {
+    public List<MenuItem> getTargetHeads() {
 
-        List<ItemStack> targetHeads = new ArrayList<>();
+        List<MenuItem> targetHeads = new ArrayList<>();
 
         for (Bet bet : bets) {
             fillHeadContent(bet, targetHeads, bet.getPlayer());
@@ -38,7 +40,8 @@ public class ContentManager {
         Head head = new Head(player);
         this.setTitle(head, bet);
         this.setLore(head, bet);
-        targetHeads.add(head.getItemStack());
+        MenuItem menuItem = new MenuItem(head.getItemStack(), player);
+        targetHeads.add(menuItem);
     }
 
     private void setTitle(Head head, Bet bet) {
@@ -48,7 +51,7 @@ public class ContentManager {
     }
 
     private void setLore(Head head, Bet bet) {
-        List<String> lore = new ArrayList();
+        List<String> lore = new ArrayList<>();
         String messageCfgStr = this.messageConfig.getString("menu.head.lore");
         int userPercent = this.getBetPercent(bet);
         int userAward = this.getBetAward(bet);

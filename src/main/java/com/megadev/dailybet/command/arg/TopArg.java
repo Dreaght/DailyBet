@@ -31,8 +31,9 @@ public class TopArg extends AbstractCommand {
     }
 
     private void handleCommand(Player player) {
-        for (Menu menu : MenuManager.getInstance().getMenus())
-            player.openInventory(menu.getInventory());
+        for (Menu menu : MenuManager.getInstance().getMenus()) {
+            if (menu.getPlayer().equals(player)) player.openInventory(menu.getInventory());
+        }
 
     }
 

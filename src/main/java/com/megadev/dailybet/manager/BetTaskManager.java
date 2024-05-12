@@ -1,6 +1,8 @@
 package com.megadev.dailybet.manager;
 
 import com.megadev.dailybet.config.SettingsConfig;
+import com.megadev.dailybet.config.BetConfig;
+import com.megadev.dailybet.object.Bet;
 import lombok.Getter;
 
 import org.bukkit.plugin.Plugin;
@@ -10,6 +12,7 @@ import com.megadev.dailybet.task.BetDailyTimer;
 import com.megadev.dailybet.util.parse.ParseDate;
 import com.megadev.dailybet.util.parse.ParsePeriod;
 
+import java.text.ParseException;
 import java.util.Date;
 
 public class BetTaskManager {
@@ -45,9 +48,12 @@ public class BetTaskManager {
     }
 
     public void startBetProcess(int points, Date date, String interval, String timeZone) {
+        ConfigManager.getInstance().getConfig(BetConfig.class).setRunning(true);
         this.betManager = new BetManager(points);
         date = ParseDate.getTimezonedDate(date, timeZone);
         long period = ParsePeriod.getPeriodFromString(interval);
+
+        this.giveawayDate = date;
 
         betDailyTimer = new BetDailyTimer(plugin);
         betDailyTimer.runTaskTimer(plugin, ParseDate.difference(new Date(), date) / 50, period / 50);
@@ -64,6 +70,8 @@ public class BetTaskManager {
             betDailyTimer.cancel();
         }
 
+        ConfigManager.getInstance().getConfig(BetConfig.class).setRunning(false);
+
         betDailyTimer = new BetDailyTimer(plugin);
         betManager = null;
     }
@@ -71,10 +79,26 @@ public class BetTaskManager {
     public void restartBetManager() {
         int points = betManager.getPoints();
 
+        this.giveawayDate = new Date();
+
         this.betManager = new BetManager(points);
     }
 
     public boolean isRunning() {
         return betManager != null;
+    }
+
+    public void installBets() throws ParseException {
+        BetConfig betConfig = ConfigManager.getInstance().getConfig(BetConfig.class);
+
+        if (!betConfig.isRunning())
+            return;
+
+        startBetProcess(betConfig.getPoints(), betConfig.getDate());
+
+        BetManager betManager = BetTaskManager.getInstance().getBetManager();
+
+        for (Bet bet : betConfig.getAllBets())
+            betManager.addBet(bet);
     }
 }

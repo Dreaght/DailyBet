@@ -81,5 +81,4 @@ public class BetManager {
         descendingBets.addAll(this.bets.values());
         return descendingBets;
     }
-
 }

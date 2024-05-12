@@ -1,6 +1,7 @@
 package com.megadev.dailybet.manager;
 
 import com.megadev.dailybet.object.menu.Menu;
+import com.megadev.dailybet.object.menu.MenuItem;
 import lombok.Getter;
 
 import org.bukkit.Bukkit;
@@ -19,7 +20,7 @@ public class MenuManager {
     @Getter
     private static MenuManager instance;
     @Getter
-    private final List<Menu> menus = new ArrayList();
+    private final List<Menu> menus = new ArrayList<>();
     private final Plugin plugin;
     private BetManager betManager;
 
@@ -113,10 +114,10 @@ public class MenuManager {
                     bets = betManager.getBets(); // to make it fakes --> // turn it to #getBetsWithFakes() instead
                 }
 
-                List<ItemStack> targetHeads = new ContentManager(bets).getTargetHeads();
+                List<MenuItem> targetHeads = new ContentManager(bets).getTargetHeads();
 
                 for (Menu menu : menus) {
-                    menu.fillHeads(targetHeads, bets);
+                    menu.fillHeads(targetHeads);
                 }
             }
         };

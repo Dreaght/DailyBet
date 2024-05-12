@@ -1,6 +1,5 @@
 package com.megadev.dailybet.config;
 
-import com.megadev.dailybet.config.cache.BetConfigManager;
 import dev.mega.megacore.config.Manager;
 
 import lombok.Getter;
@@ -14,7 +13,7 @@ public class ConfigManager extends Manager {
     public ConfigManager(Plugin plugin, String dataFolder) {
         super(plugin, dataFolder);
 
-        addConfig(BetConfigManager.class, new BetConfigManager(plugin, "cache"));
+        addConfig(BetConfig.class, new BetConfig(plugin, "bets"));
         addConfig(SettingsConfig.class, new SettingsConfig(plugin, "config"));
         addConfig(MessageConfig.class, new MessageConfig(plugin, "messages"));
     }
