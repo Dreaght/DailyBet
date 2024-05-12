@@ -1,6 +1,5 @@
 package com.megadev.dailybet.manager;
 
-import com.megadev.dailybet.config.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.Plugin;

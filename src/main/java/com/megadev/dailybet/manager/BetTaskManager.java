@@ -46,17 +46,11 @@ public class BetTaskManager {
 
     public void startBetProcess(int points, Date date, String interval, String timeZone) {
         this.betManager = new BetManager(points);
-
         date = ParseDate.getTimezonedDate(date, timeZone);
-
         long period = ParsePeriod.getPeriodFromString(interval);
 
-        Date finalDate = new Date(date.getTime() + period);
-
-        this.giveawayDate = finalDate;
-
         betDailyTimer = new BetDailyTimer(plugin);
-        betDailyTimer.runTaskTimer(plugin, ParseDate.difference(date, finalDate) / 50, period / 50);
+        betDailyTimer.runTaskTimer(plugin, ParseDate.difference(new Date(), date) / 50, period / 50);
     }
 
     public void safeDeleteBetProcess() {

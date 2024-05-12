@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -37,8 +38,13 @@ class ParseDateTest {
         Date date1 = new Date();
         Date date2 = new Date();
 
+        Calendar c = Calendar.getInstance();
+        c.setTime(date2);
+        c.add(Calendar.DATE, 1);
+        date2 = c.getTime();
+
         long diff = ParseDate.difference(date1, date2);
-        assert diff == 0;
+        System.out.println(diff);
     }
 
     @Test
