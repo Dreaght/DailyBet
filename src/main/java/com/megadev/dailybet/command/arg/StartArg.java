@@ -52,8 +52,10 @@ public class StartArg extends AbstractCommand {
     }
 
     private void handleCommand(Player player, String[] args) {
-        if (!hasRights(player))
+        if (!hasRights(player)) {
+            player.sendMessage(messageConfig.getString("messages.command.not-permission"));
             return;
+        }
 
         try {
             if (args.length < 2) {

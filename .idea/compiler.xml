@@ -8,9 +8,12 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.32/17d46b3e205515e1e8efd3ee4d57ce8018914163/lombok-1.18.32.jar" />
         </processorPath>
-        <module name="DailyBet.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="14" />
+    <bytecodeTargetLevel target="14">
+      <module name="com.megadev.DailyBet" target="16" />
+      <module name="com.megadev.DailyBet.main" target="16" />
+      <module name="com.megadev.DailyBet.test" target="16" />
+    </bytecodeTargetLevel>
   </component>
 </project>

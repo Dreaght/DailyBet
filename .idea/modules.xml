@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DailyBet.iml" filepath="$PROJECT_DIR$/DailyBet.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DailyBet.main.iml" filepath="$PROJECT_DIR$/.idea/modules/DailyBet.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DailyBet.test.iml" filepath="$PROJECT_DIR$/.idea/modules/DailyBet.test.iml" />
     </modules>
   </component>
