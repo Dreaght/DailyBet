@@ -41,6 +41,7 @@ public final class DailyBet extends MegaCore {
 
         this.getServer().getPluginManager().registerEvents(new MenuListener(), this);
         this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
+
         Objects.requireNonNull(this.getCommand("bet")).setExecutor(new BetCommand());
         EconomyHandler.installEconomies();
 
