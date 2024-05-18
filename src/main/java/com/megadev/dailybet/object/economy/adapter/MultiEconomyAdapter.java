@@ -5,6 +5,7 @@ import com.megadev.dailybet.config.SettingsConfig;
 import com.megadev.dailybet.object.economy.EconomyHandler;
 
 import me.glaremasters.multieconomy.api.API;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 

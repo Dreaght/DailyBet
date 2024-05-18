@@ -5,6 +5,7 @@ import com.megadev.dailybet.object.menu.MenuItem;
 import lombok.Getter;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -32,10 +33,12 @@ public class MenuManager {
     }
 
     public void loadAllPlayerMenus() {
-        Bukkit.getServer().getOnlinePlayers().forEach(this::loadPlayerMenus);
+        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+            loadPlayerMenus(player);
+        }
     }
 
-    public void loadPlayerMenus(Player player) {
+    public void loadPlayerMenus(OfflinePlayer player) {
         Menu menu = new Menu(player);
         this.menus.add(menu);
 

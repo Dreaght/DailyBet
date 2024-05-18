@@ -26,7 +26,7 @@ messages:
     already-running: "&cEvent is already running!"
     bet-set: "&aYou have set your bet successfully!"
     bet-added: "&aYou have successfully added a new sum to your bet!"
-    bet-cash: "&aYour current balance is %BET_BALANCE%" # %BET_BALANCE%
+    bet-cash: "&aYour current balance at bet is %BET_BALANCE%" # %BET_BALANCE%
     not-permission: "&cYou have no permission to do that!"
     not-enough-cash: "&cYou don't have enough cash!"
   event-finished: "&aEvent finished! Everyone were awarded for %POINTS% points!" # %POINTS%

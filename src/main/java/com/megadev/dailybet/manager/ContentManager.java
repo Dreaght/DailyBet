@@ -31,7 +31,10 @@ public class ContentManager {
 
         for (Bet bet : bets) {
             fillHeadContent(bet, targetHeads, bet.getPlayer());
+            System.out.println(bet.getPlayer() + " " + bet.getCash());
         }
+
+        System.out.println(targetHeads);
 
         return targetHeads;
     }

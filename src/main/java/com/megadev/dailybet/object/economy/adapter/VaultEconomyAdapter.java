@@ -5,7 +5,6 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 public class VaultEconomyAdapter implements EconomyAdapter {
     private final Economy economy;
@@ -32,7 +31,7 @@ public class VaultEconomyAdapter implements EconomyAdapter {
         if (amount > currentBalance) {
             return this.add(player, diff);
         } else {
-            return amount < currentBalance ? this.subtract(player, diff) : true;
+            return !(amount < currentBalance) || this.subtract(player, diff);
         }
     }
 }

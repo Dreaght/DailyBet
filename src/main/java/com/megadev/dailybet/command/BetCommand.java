@@ -1,6 +1,7 @@
 package com.megadev.dailybet.command;
 
 import com.megadev.dailybet.command.arg.*;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

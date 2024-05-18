@@ -81,6 +81,7 @@ public class BetTaskManager {
 
         this.giveawayDate = new Date();
 
+        this.betManager = null;
         this.betManager = new BetManager(points);
     }
 

@@ -4,27 +4,26 @@ import com.megadev.dailybet.DailyBet;
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.config.SettingsConfig;
-import com.megadev.dailybet.object.Bet;
 
-import java.util.List;
-import java.util.Set;
-
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.List;
+
+import lombok.Getter;
 
 @Getter
 public class Menu {
     private Inventory inventory;
-    private final Player player;
+    private final OfflinePlayer player;
     private static int menuRows;
 
-    public Menu(Player player) {
+    public Menu(OfflinePlayer player) {
         this.player = player;
         ConfigManager configManager = ConfigManager.getInstance();
         menuRows = (Integer)configManager.getConfig(SettingsConfig.class).getValue("menu-rows");
@@ -32,7 +31,7 @@ public class Menu {
 
     public void loadContent() {
         try {
-            this.inventory = Bukkit.createInventory(this.player, menuRows * 9,
+            this.inventory = Bukkit.createInventory(this.player.getPlayer(), menuRows * 9,
                     (String)ConfigManager.getInstance().getConfig(MessageConfig.class).getValue("menu.title"));
         } catch (IllegalArgumentException var2) {
             Bukkit.getLogger().severe("Invalid menu row value. Must be between 3 and 6.");
@@ -45,11 +44,12 @@ public class Menu {
 
     public void fillHeads(List<MenuItem> targetHeads) {
         try {
+            System.out.println(targetHeads);
+
             this.fillEmpties();
 
             for (MenuItem targetHead : targetHeads) {
                 if (targetHead.player().equals(player)) {
-
                     this.inventory.setItem(8, targetHead.itemStack());
                 }
             }
