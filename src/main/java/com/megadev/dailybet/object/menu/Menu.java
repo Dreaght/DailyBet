@@ -5,6 +5,7 @@ import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.config.SettingsConfig;
 
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -21,7 +22,8 @@ import lombok.Getter;
 @Getter
 public class Menu {
     private Inventory inventory;
-    private final Player player;
+    @Setter
+    private Player player;
     private final UUID uuid;
     private static int menuRows;
 

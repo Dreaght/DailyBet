@@ -57,6 +57,8 @@ public class EconomyHandler {
     private static EconomyAdapter setupVault() {
         Plugin plugin = DailyBet.getInstance();
         if (plugin.getServer().getPluginManager().getPlugin("Vault") == null) {
+            Bukkit.getLogger().warning("setup Vault or any EconomyPlugin");
+            Bukkit.getPluginManager().disablePlugin(plugin);
             return null;
         }
 
