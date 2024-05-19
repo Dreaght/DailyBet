@@ -67,6 +67,7 @@ public class MenuManager {
                 if (this.inventoriesEqual(playerInventory, loadedInventory)) {
                     playersToReopen.add(player);
                 }
+
             }
 
             for (Player player : playersToReopen) {
