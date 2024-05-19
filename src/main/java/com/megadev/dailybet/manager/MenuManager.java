@@ -5,7 +5,6 @@ import com.megadev.dailybet.object.menu.MenuItem;
 import lombok.Getter;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -33,12 +32,12 @@ public class MenuManager {
     }
 
     public void loadAllPlayerMenus() {
-        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             loadPlayerMenus(player);
         }
     }
 
-    public void loadPlayerMenus(OfflinePlayer player) {
+    public void loadPlayerMenus(Player player) {
         Menu menu = new Menu(player);
         this.menus.add(menu);
 
@@ -62,22 +61,15 @@ public class MenuManager {
 
         if (loadedInventory != null) {
             Set<Player> playersToReopen = new HashSet();
-            Iterator var3 = Arrays.stream(Bukkit.getOfflinePlayers()).iterator();
 
-            Player player;
-            while(var3.hasNext()) {
-                player = (Player)var3.next();
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 Inventory playerInventory = player.getOpenInventory().getTopInventory();
                 if (this.inventoriesEqual(playerInventory, loadedInventory)) {
                     playersToReopen.add(player);
                 }
             }
 
-            var3 = playersToReopen.iterator();
-
-            while(var3.hasNext()) {
-                player = (Player)var3.next();
-
+            for (Player player : playersToReopen) {
                 for (Menu menu : this.menus) {
                     if (menu.getPlayer().equals(player)) {
                         player.closeInventory();

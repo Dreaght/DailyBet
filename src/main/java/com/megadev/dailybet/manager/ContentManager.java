@@ -43,7 +43,7 @@ public class ContentManager {
         Head head = new Head(player);
         this.setTitle(head, bet);
         this.setLore(head, bet);
-        MenuItem menuItem = new MenuItem(head.getItemStack(), player);
+        MenuItem menuItem = new MenuItem(head.getItemStack(), player.getUniqueId());
         targetHeads.add(menuItem);
     }
 
