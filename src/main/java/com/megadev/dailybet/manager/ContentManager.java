@@ -1,9 +1,7 @@
 package com.megadev.dailybet.manager;
 
-import com.megadev.dailybet.object.menu.Menu;
 import com.megadev.dailybet.object.menu.MenuItem;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.inventory.ItemStack;
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
 import com.megadev.dailybet.object.Bet;
@@ -31,10 +29,7 @@ public class ContentManager {
 
         for (Bet bet : bets) {
             fillHeadContent(bet, targetHeads, bet.getPlayer());
-            System.out.println(bet.getPlayer() + " " + bet.getCash());
         }
-
-        System.out.println(targetHeads);
 
         return targetHeads;
     }

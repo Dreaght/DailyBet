@@ -7,6 +7,7 @@ import com.megadev.dailybet.object.economy.EconomyHandler;
 import me.glaremasters.multieconomy.api.API;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class MultiEconomyAdapter implements EconomyAdapter, Currency {
@@ -26,14 +27,11 @@ public class MultiEconomyAdapter implements EconomyAdapter, Currency {
     public boolean add(OfflinePlayer player, double amount) {
         String uuid = player.getUniqueId().toString();
 
-        if (dataExist((Player) player)) {
+        if (dataExist(player)) {
             double balance = getBalance(player);
-
-            System.out.println(getBalance(player));
 
             API.setAmount(uuid, getCurrency(), (int) (amount + balance));
 
-            System.out.println(getBalance(player));
             return true;
         }
         return true;
@@ -52,7 +50,7 @@ public class MultiEconomyAdapter implements EconomyAdapter, Currency {
     public double getBalance(OfflinePlayer player) {
         String uuid = player.getUniqueId().toString();
 
-        if (dataExist((Player) player)) {
+        if (dataExist(player)) {
             return Double.parseDouble(API.getAmount(uuid, getCurrency()));
         }
         return 0;
@@ -61,7 +59,7 @@ public class MultiEconomyAdapter implements EconomyAdapter, Currency {
     public boolean setBalance(OfflinePlayer player, double amount) {
         String uuid = player.getUniqueId().toString();
 
-        if (dataExist((Player) player)) {
+        if (dataExist(player)) {
             API.setAmount(uuid, getCurrency(), (int) amount);
             return true;
         }
@@ -69,7 +67,7 @@ public class MultiEconomyAdapter implements EconomyAdapter, Currency {
         return true;
     }
 
-    private boolean dataExist(Player player) {
-        return API.checkDataExist(player, String.valueOf(player.getUniqueId()), getCurrency());
+    private boolean dataExist(OfflinePlayer player) {
+        return API.checkDataExist((CommandSender) player, String.valueOf(player.getUniqueId()), getCurrency());
     }
 }

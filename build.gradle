@@ -1,5 +1,3 @@
-
-
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
@@ -44,6 +42,6 @@ dependencies {
 }
 
 shadowJar {
-    destinationDirectory.set(new File("D:/sever/plugins"))
+    destinationDirectory.set(new File(System.getenv('SERVER_PATH').toString()))
     archiveFileName = "DailyBet-${version}.jar"
 }

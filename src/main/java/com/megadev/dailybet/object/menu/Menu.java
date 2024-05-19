@@ -49,7 +49,6 @@ public class Menu {
 
     public void fillHeads(List<MenuItem> targetHeads) {
         try {
-            System.out.println(targetHeads);
 
             this.fillEmpties();
 

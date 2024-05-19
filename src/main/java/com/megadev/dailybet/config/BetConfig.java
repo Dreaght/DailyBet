@@ -50,7 +50,6 @@ public class BetConfig extends Configurable implements Deletable {
         try {
             setValue("bets." + uuid.toString(), cash);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
 
             e.printStackTrace();
         }
@@ -68,7 +67,6 @@ public class BetConfig extends Configurable implements Deletable {
         try {
             config.set("points", points);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
             exception.printStackTrace();
         }
     }
@@ -83,7 +81,6 @@ public class BetConfig extends Configurable implements Deletable {
         try {
             setValue("date", timeDateFormat.format(date));
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
 
             exception.printStackTrace();
         }
