@@ -39,7 +39,6 @@ dependencies {
     compileOnly files (new File("libs/CoinsEngine-2.3.3.jar"))
     compileOnly files (new File("libs/MultiEconomy-1.0.7-BETA.jar"))
 
-
     implementation files (new File("libs/megacore-1.0-beta.jar"))
     implementation files (new File("libs/nightcore-2.5.2.jar"))
 }

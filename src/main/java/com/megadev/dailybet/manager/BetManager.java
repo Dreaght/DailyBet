@@ -35,7 +35,7 @@ public class BetManager {
     }
 
     public double getInvestedCash(OfflinePlayer player) {
-        return ((Bet)this.bets.get(player)).getCash();
+        return this.bets.get(player).getCash();
     }
 
     public double getUserAward(OfflinePlayer player) {

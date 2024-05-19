@@ -77,10 +77,8 @@ public class MenuManager {
 
             while(var3.hasNext()) {
                 player = (Player)var3.next();
-                Iterator var8 = this.menus.iterator();
 
-                while(var8.hasNext()) {
-                    Menu menu = (Menu)var8.next();
+                for (Menu menu : this.menus) {
                     if (menu.getPlayer().equals(player)) {
                         player.closeInventory();
                         player.openInventory(menu.getInventory());
