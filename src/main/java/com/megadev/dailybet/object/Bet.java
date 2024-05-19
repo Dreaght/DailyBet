@@ -2,6 +2,7 @@ package com.megadev.dailybet.object;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -20,7 +21,14 @@ public class Bet implements Comparable<Bet> {
     }
 
     public String getPlayerName() {
-        return this.uuid == null ? "unknown" : Bukkit.getPlayer(this.uuid).getName();
+        if (this.uuid == null) return "unknown";
+        try {
+            Player player = Bukkit.getPlayer(uuid);
+            if (player == null) return "unknown";
+            return player.getName();
+        } catch (NullPointerException e) {
+            return "unknown";
+        }
     }
 
     public int compareTo(Bet otherBet) {
