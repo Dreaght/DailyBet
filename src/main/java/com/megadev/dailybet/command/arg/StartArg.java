@@ -3,8 +3,10 @@ package com.megadev.dailybet.command.arg;
 import com.megadev.dailybet.command.AbstractCommand;
 import com.megadev.dailybet.config.ConfigManager;
 import com.megadev.dailybet.config.MessageConfig;
+import com.megadev.dailybet.config.SettingsConfig;
 import com.megadev.dailybet.manager.BetTaskManager;
 import com.megadev.dailybet.util.chat.Color;
+import com.megadev.dailybet.util.parse.ParsePeriod;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,10 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import com.megadev.dailybet.util.parse.ParseDate;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class StartArg extends AbstractCommand {
     MessageConfig messageConfig = ConfigManager.getInstance().getConfig(MessageConfig.class);
@@ -69,6 +68,15 @@ public class StartArg extends AbstractCommand {
             }
 
             Date date = ParseDate.getDateTimeFromString(Arrays.copyOfRange(args, 2, args.length));
+
+            String interval = ConfigManager.getInstance().getConfig(SettingsConfig.class).getString("interval");
+            long period = ParsePeriod.getPeriodFromString(interval);
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            c.add(Calendar.MILLISECOND, (int) period);
+            date = c.getTime();
+
             BetTaskManager.getInstance().startBetProcess(Integer.parseInt(args[1]), date);
             Color.sendMessage(player, messageConfig.getString("messages.command.event-started"));
         } catch (ParseException e) {
