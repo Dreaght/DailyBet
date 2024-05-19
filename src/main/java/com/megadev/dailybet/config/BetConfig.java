@@ -56,7 +56,6 @@ public class BetConfig extends Configurable implements Deletable {
     }
     
     public int getPoints() {
-
         if (config.get("bets") == null) {
             config.createSection("bets");
         }
@@ -97,6 +96,8 @@ public class BetConfig extends Configurable implements Deletable {
 
     @Override
     public void delete() {
-        deleteConfig();
+        if (config.get("bets") == null)
+            return;
+        config.set("bets", null);
     }
 }

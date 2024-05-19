@@ -28,24 +28,25 @@ public class ContentManager {
 
         List<MenuItem> targetHeads = new ArrayList<>();
 
+        int index = 1;
         for (Bet bet : bets) {
-            fillHeadContent(bet, targetHeads, bet.getUuid());
+            fillHeadContent(bet, targetHeads, bet.getUuid(), index++);
         }
 
         return targetHeads;
     }
 
-    public void fillHeadContent(Bet bet, List<MenuItem> targetHeads, UUID uuid) {
+    public void fillHeadContent(Bet bet, List<MenuItem> targetHeads, UUID uuid, int index) {
         Head head = new Head(uuid);
-        this.setTitle(head, bet);
+        this.setTitle(head, bet, index);
         this.setLore(head, bet);
         MenuItem menuItem = new MenuItem(head.getItemStack(), uuid);
         targetHeads.add(menuItem);
     }
 
-    private void setTitle(Head head, Bet bet) {
+    private void setTitle(Head head, Bet bet, int index) {
         String messageConfigStr = this.messageConfig.getString("menu.head.title");
-        String title = ParsePlaceholder.parseWithBraces(messageConfigStr, new String[]{"PLAYER_NAME", "AMOUNT"}, new Object[]{bet.getPlayerName(), bet.getCash()});
+        String title = ParsePlaceholder.parseWithBraces(messageConfigStr, new String[]{"PLAYER_NAME", "AMOUNT", "NUMBER"}, new Object[]{bet.getPlayerName(), bet.getCash(), index});
         head.setTitle(title);
     }
 

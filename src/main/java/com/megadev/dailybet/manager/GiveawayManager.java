@@ -49,11 +49,15 @@ public class GiveawayManager {
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
         UUID uuid = bet.getUuid();
         if (uuid != null) {
+            Player player = Bukkit.getPlayer(uuid);
             double award = betManager.getUserAward(uuid);
+
             this.depositPoints(uuid, award);
             String stringAward = messageConfig.getString("messages.received");
             stringAward = ParsePlaceholder.parseWithBraces(stringAward, new String[]{"AWARD"}, new Object[]{(int)award});
-            Color.sendMessage(Bukkit.getPlayer(uuid), stringAward);
+
+            if (player == null) return;
+            Color.sendMessage(player, stringAward);
         }
     }
 

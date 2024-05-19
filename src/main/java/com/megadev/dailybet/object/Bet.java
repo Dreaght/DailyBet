@@ -21,14 +21,7 @@ public class Bet implements Comparable<Bet> {
     }
 
     public String getPlayerName() {
-        if (this.uuid == null) return "unknown";
-        try {
-            Player player = Bukkit.getPlayer(uuid);
-            if (player == null) return "unknown";
-            return player.getName();
-        } catch (NullPointerException e) {
-            return "unknown";
-        }
+        return this.uuid == null ? "unknown" : Bukkit.getOfflinePlayer(this.uuid).getName();
     }
 
     public int compareTo(Bet otherBet) {
@@ -40,11 +33,4 @@ public class Bet implements Comparable<Bet> {
         return Double.compare(this.getCash(), otherBet.getCash());
     }
 
-    public UUID getUuid() {
-        return this.uuid;
-    }
-
-    public double getCash() {
-        return this.cash;
-    }
 }

@@ -68,9 +68,8 @@ public class BetManager {
     public double getTotalCash() {
         double cash = 0.0;
 
-        OfflinePlayer player;
-        for(Iterator var3 = this.bets.keySet().iterator(); var3.hasNext(); cash += ((Bet)this.bets.get(player)).getCash()) {
-            player = (OfflinePlayer)var3.next();
+        for (UUID uuid : bets.keySet()) {
+            cash += bets.get(uuid).getCash();
         }
 
         return cash;

@@ -14,7 +14,7 @@
 menu:
   title: "§8Bets top"
   head:
-    title: "§c%PLAYER_NAME% §7(§8%AMOUNT%§7)" # %PLAYER_NAME% | %AMOUNT%
+    title: "§a#%NUMBER% §c%PLAYER_NAME% §7(§8%AMOUNT%§7)" # %PLAYER_NAME% | %AMOUNT% | %NUMBER%
     lore: "§6%PERCENT%% §7- §c%AWARD%" # %PERCENT% | %AWARD%
 messages:
   command:
