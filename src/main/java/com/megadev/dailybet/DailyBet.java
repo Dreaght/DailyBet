@@ -72,7 +72,7 @@ public final class DailyBet extends MegaCore {
         betConfig.setPoints(betManager.getPoints());
 
         for (Bet bet : betManager.getBets())
-            betConfig.setCash(bet.getPlayer().getUniqueId(), bet.getCash());
+            betConfig.setCash(bet.getUuid(), bet.getCash());
     }
 
     private void saveInventory() {

@@ -31,7 +31,7 @@ class BetManagerTest {
             Player player = mock(Player.class);
             when(player.getUniqueId()).thenReturn(UUID.randomUUID());
 
-            betManager.addBet(player, i);
+            betManager.addBet(player.getUniqueId(), i);
         }
 
         assertNotEquals(IntStream.rangeClosed(min, max).sum() + 1, betManager.getTotalCash());

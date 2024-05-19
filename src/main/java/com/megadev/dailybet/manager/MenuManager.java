@@ -33,12 +33,12 @@ public class MenuManager {
 
     public void loadAllPlayerMenus() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            loadPlayerMenus(player);
+            loadPlayerMenus(player.getUniqueId());
         }
     }
 
-    public void loadPlayerMenus(Player player) {
-        Menu menu = new Menu(player);
+    public void loadPlayerMenus(UUID uuid) {
+        Menu menu = new Menu(uuid);
         this.menus.add(menu);
 
         menu.loadContent();
@@ -72,7 +72,7 @@ public class MenuManager {
 
             for (Player player : playersToReopen) {
                 for (Menu menu : this.menus) {
-                    if (menu.getPlayer().equals(player)) {
+                    if (menu.getUuid().equals(player.getUniqueId())) {
                         player.closeInventory();
                         player.openInventory(menu.getInventory());
                     }

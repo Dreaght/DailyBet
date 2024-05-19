@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class TopArg extends AbstractCommand {
@@ -32,7 +31,7 @@ public class TopArg extends AbstractCommand {
 
     private void handleCommand(Player player) {
         for (Menu menu : MenuManager.getInstance().getMenus()) {
-            if (menu.getPlayer().equals(player)) player.openInventory(menu.getInventory());
+            if (menu.getUuid().equals(player.getUniqueId())) player.openInventory(menu.getInventory());
         }
 
     }

@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class BetAmountArg extends AbstractCommand {
     MessageConfig messageConfig = ConfigManager.getInstance().getConfig(MessageConfig.class);
@@ -38,7 +39,7 @@ public class BetAmountArg extends AbstractCommand {
             int cash = Integer.parseInt(args[0]);
             if (cash < 1) {
                 Color.sendMessage(player, messageConfig.getString("messages.command.incorrect-cash"));
-            } else if (EconomyFrom.getBalance(player) < (double)cash) {
+            } else if (EconomyFrom.getBalance(player.getUniqueId()) < (double)cash) {
                 Color.sendMessage(player, messageConfig.getString("messages.command.not-enough-cash"));
             } else {
                 this.handleBet(player, cash);
@@ -62,16 +63,17 @@ public class BetAmountArg extends AbstractCommand {
         if (betManager == null) {
             Color.sendMessage(user, messageConfig.getString("messages.command.not-started"));
         } else {
-            EconomyFrom.withdraw(user, cash);
-            betManager.addBet(user, cash);
-            if (betManager.isPresent(user)) {
+            UUID id = user.getUniqueId();
+            EconomyFrom.withdraw(id, cash);
+            betManager.addBet(id, cash);
+            if (betManager.isPresent(id)) {
                 Color.sendMessage(user, messageConfig.getString("messages.command.bet-added"));
             } else {
                 Color.sendMessage(user, messageConfig.getString("messages.command.bet-set"));
             }
 
             String betBalance = messageConfig.getString("messages.command.bet-cash");
-            betBalance = ParsePlaceholder.parseWithBraces(betBalance, new String[]{"BET_BALANCE"}, new Object[]{betManager.getInvestedCash(user)});
+            betBalance = ParsePlaceholder.parseWithBraces(betBalance, new String[]{"BET_BALANCE"}, new Object[]{betManager.getInvestedCash(user.getUniqueId())});
             Color.sendMessage(user, betBalance);
         }
     }

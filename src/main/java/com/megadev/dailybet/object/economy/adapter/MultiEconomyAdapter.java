@@ -6,9 +6,9 @@ import com.megadev.dailybet.object.economy.EconomyHandler;
 
 import me.glaremasters.multieconomy.api.API;
 
-import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
+
+import java.util.UUID;
 
 public class MultiEconomyAdapter implements EconomyAdapter, Currency {
     SettingsConfig settingsConfig = ConfigManager.getInstance().getConfig(SettingsConfig.class);
@@ -24,50 +24,42 @@ public class MultiEconomyAdapter implements EconomyAdapter, Currency {
         }
     }
 
-    public boolean add(OfflinePlayer player, double amount) {
-        String uuid = player.getUniqueId().toString();
+    public boolean add(UUID uuid, double amount) {
+        if (dataExist(uuid)) {
+            double balance = getBalance(uuid);
 
-        if (dataExist(player)) {
-            double balance = getBalance(player);
-
-            API.setAmount(uuid, getCurrency(), (int) (amount + balance));
+            API.setAmount(uuid.toString(), getCurrency(), (int) (amount + balance));
 
             return true;
         }
         return true;
     }
 
-    public boolean subtract(OfflinePlayer player, double amount) {
-        String uuid = player.getUniqueId().toString();
-
-        if (dataExist(player.getPlayer())) {
-            API.setAmount(uuid, getCurrency(), (int) (getBalance(player) - amount));
+    public boolean subtract(UUID uuid, double amount) {
+        if (dataExist(uuid)) {
+            API.setAmount(uuid.toString(), getCurrency(), (int) (getBalance(uuid) - amount));
             return true;
         }
         return true;
     }
 
-    public double getBalance(OfflinePlayer player) {
-        String uuid = player.getUniqueId().toString();
-
-        if (dataExist(player)) {
-            return Double.parseDouble(API.getAmount(uuid, getCurrency()));
+    public double getBalance(UUID uuid) {
+        if (dataExist(uuid)) {
+            return Double.parseDouble(API.getAmount(uuid.toString(), getCurrency()));
         }
         return 0;
     }
 
-    public boolean setBalance(OfflinePlayer player, double amount) {
-        String uuid = player.getUniqueId().toString();
-
-        if (dataExist(player)) {
-            API.setAmount(uuid, getCurrency(), (int) amount);
+    public boolean setBalance(UUID uuid, double amount) {
+        if (dataExist(uuid)) {
+            API.setAmount(uuid.toString(), getCurrency(), (int) amount);
             return true;
         }
 
         return true;
     }
 
-    private boolean dataExist(OfflinePlayer player) {
-        return API.checkDataExist((CommandSender) player, String.valueOf(player.getUniqueId()), getCurrency());
+    private boolean dataExist(UUID player) {
+        return API.checkDataExist(Bukkit.getPlayer(player), player.toString(), getCurrency());
     }
 }

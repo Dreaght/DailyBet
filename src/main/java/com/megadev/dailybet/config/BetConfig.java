@@ -31,7 +31,7 @@ public class BetConfig extends Configurable implements Deletable {
             for (String key : keys) {
                 UUID uuid = UUID.fromString(key);
 
-                Bet bet = new Bet(Bukkit.getOfflinePlayer(uuid), (int) betsSection.getDouble(key));
+                Bet bet = new Bet(uuid, (int) betsSection.getDouble(key));
                 bets.add(bet);
             }
         }

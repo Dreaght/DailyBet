@@ -4,7 +4,9 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 
-import org.bukkit.OfflinePlayer;
+import org.bukkit.Bukkit;
+
+import java.util.UUID;
 
 public class VaultEconomyAdapter implements EconomyAdapter {
     private final Economy economy;
@@ -13,19 +15,19 @@ public class VaultEconomyAdapter implements EconomyAdapter {
         this.economy = economy;
     }
 
-    public boolean add(OfflinePlayer player, double amount) {
-        return this.economy.depositPlayer(player, amount).type == EconomyResponse.ResponseType.SUCCESS;
+    public boolean add(UUID player, double amount) {
+        return this.economy.depositPlayer(Bukkit.getOfflinePlayer(player), amount).type == EconomyResponse.ResponseType.SUCCESS;
     }
 
-    public boolean subtract(OfflinePlayer player, double amount) {
-        return this.economy.withdrawPlayer(player, amount).type == ResponseType.SUCCESS;
+    public boolean subtract(UUID player, double amount) {
+        return this.economy.withdrawPlayer(Bukkit.getOfflinePlayer(player), amount).type == ResponseType.SUCCESS;
     }
 
-    public double getBalance(OfflinePlayer player) {
-        return this.economy.getBalance(player);
+    public double getBalance(UUID player) {
+        return this.economy.getBalance(Bukkit.getOfflinePlayer(player));
     }
 
-    public boolean setBalance(OfflinePlayer player, double amount) {
+    public boolean setBalance(UUID player, double amount) {
         double currentBalance = this.getBalance(player);
         double diff = Math.abs(amount - currentBalance);
         if (amount > currentBalance) {

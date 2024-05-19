@@ -2,27 +2,28 @@ package com.megadev.dailybet.object.menu;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.List;
+import java.util.UUID;
 
-@Getter @Setter
+@Setter @Getter
 public class Head {
-    private OfflinePlayer player;
+    private UUID uuid;
     private String title;
     private List<String> lore;
 
-    public Head(OfflinePlayer player, String title, List<String> lore) {
-        this.player = player;
+    public Head(UUID uuid, String title, List<String> lore) {
+        this.uuid = uuid;
         this.title = title;
         this.lore = lore;
     }
 
-    public Head(OfflinePlayer player) {
-        this.player = player;
+    public Head(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public ItemStack getItemStack() {
@@ -34,27 +35,4 @@ public class Head {
         return skull;
     }
 
-    public OfflinePlayer getPlayer() {
-        return this.player;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public List<String> getLore() {
-        return this.lore;
-    }
-
-    public void setPlayer(OfflinePlayer player) {
-        this.player = player;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setLore(List<String> lore) {
-        this.lore = lore;
-    }
 }

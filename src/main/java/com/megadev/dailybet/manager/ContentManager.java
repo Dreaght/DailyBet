@@ -11,6 +11,7 @@ import com.megadev.dailybet.util.parse.ParsePlaceholder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class ContentManager {
     private final Set<Bet> bets;
@@ -28,17 +29,17 @@ public class ContentManager {
         List<MenuItem> targetHeads = new ArrayList<>();
 
         for (Bet bet : bets) {
-            fillHeadContent(bet, targetHeads, bet.getPlayer());
+            fillHeadContent(bet, targetHeads, bet.getUuid());
         }
 
         return targetHeads;
     }
 
-    public void fillHeadContent(Bet bet, List<MenuItem> targetHeads, OfflinePlayer player) {
-        Head head = new Head(player);
+    public void fillHeadContent(Bet bet, List<MenuItem> targetHeads, UUID uuid) {
+        Head head = new Head(uuid);
         this.setTitle(head, bet);
         this.setLore(head, bet);
-        MenuItem menuItem = new MenuItem(head.getItemStack(), player.getUniqueId());
+        MenuItem menuItem = new MenuItem(head.getItemStack(), uuid);
         targetHeads.add(menuItem);
     }
 

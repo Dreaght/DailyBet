@@ -8,11 +8,14 @@ import com.megadev.dailybet.util.parse.ParsePlaceholder;
 
 import lombok.Getter;
 
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import com.megadev.dailybet.object.Bet;
+
+import java.util.UUID;
 
 
 public class GiveawayManager {
@@ -44,17 +47,17 @@ public class GiveawayManager {
     private void handleBet(Bet bet) {
         MessageConfig messageConfig = ConfigManager.getInstance().getConfig(MessageConfig.class);
         BetManager betManager = BetTaskManager.getInstance().getBetManager();
-        OfflinePlayer player = bet.getPlayer();
-        if (player != null) {
-            double award = betManager.getUserAward(player);
-            this.depositPoints(player, award);
+        UUID uuid = bet.getUuid();
+        if (uuid != null) {
+            double award = betManager.getUserAward(uuid);
+            this.depositPoints(uuid, award);
             String stringAward = messageConfig.getString("messages.received");
             stringAward = ParsePlaceholder.parseWithBraces(stringAward, new String[]{"AWARD"}, new Object[]{(int)award});
-            Color.sendMessage((Player)player, stringAward);
+            Color.sendMessage(Bukkit.getPlayer(uuid), stringAward);
         }
     }
 
-    private void depositPoints(OfflinePlayer player, double points) {
+    private void depositPoints(UUID player, double points) {
         EconomyTo.deposit(player, points);
     }
 

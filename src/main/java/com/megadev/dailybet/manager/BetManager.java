@@ -9,7 +9,7 @@ import java.util.*;
 
 @Getter
 public class BetManager {
-    private final HashMap<OfflinePlayer, Bet> bets = new HashMap();
+    private final HashMap<UUID, Bet> bets = new HashMap();
     @Getter
     private final int points;
 
@@ -17,7 +17,7 @@ public class BetManager {
         this.points = points;
     }
 
-    public void addBet(OfflinePlayer player, int amount) {
+    public void addBet(UUID player, int amount) {
         if (!this.bets.containsKey(player)) {
             this.bets.put(player, new Bet(player, amount));
         } else {
@@ -27,18 +27,18 @@ public class BetManager {
     }
 
     public void addBet(Bet bet) {
-        bets.put(bet.getPlayer(), bet);
+        bets.put(bet.getUuid(), bet);
     }
 
-    public boolean isPresent(OfflinePlayer player) {
+    public boolean isPresent(UUID player) {
         return this.bets.containsKey(player);
     }
 
-    public double getInvestedCash(OfflinePlayer player) {
+    public double getInvestedCash(UUID player) {
         return this.bets.get(player).getCash();
     }
 
-    public double getUserAward(OfflinePlayer player) {
+    public double getUserAward(UUID player) {
         return this.calcPercent(player) * (double)this.points;
     }
 
@@ -46,8 +46,8 @@ public class BetManager {
         return this.calcPercent(bet, bets) * (double)this.points;
     }
 
-    public double calcPercent(OfflinePlayer player) {
-        return ((Bet)this.bets.get(player)).getCash() / this.getTotalCash();
+    public double calcPercent(UUID player) {
+        return this.bets.get(player).getCash() / this.getTotalCash();
     }
 
     public double calcPercent(Bet bet, Set<Bet> bets) {
